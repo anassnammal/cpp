@@ -4,16 +4,21 @@ int	main(void)
 {
 	PhoneBook	phoneBook;
 	std::string input;
+	bool		finished;
 
-	std::cout << "Phone Book $> ";
-	while ((std::cin >> input) && input != "EXIT")
+	finished = false;
+	while (!finished)
 	{
-		if (input == "ADD")
+		std::cout << "Phone Book $> ";
+		if (!(std::cin >> input))
+			std::cout << std::endl;
+		else if (input == "EXIT")
+			finished = true;
+		else if (input == "ADD")
 			phoneBook.addContact();
 		else if (input == "SEARCH")
 			phoneBook.searchContact();
-		else
-			std::cout << "\r";
+		
 	}
-
+	return (0);
 }

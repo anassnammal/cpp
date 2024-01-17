@@ -25,13 +25,14 @@ void	PhoneBook::searchContact(void) const
 	int	id;
 
 	std::cout << "enter an index: ";
-	while (!(std::cin >> id) || id > 7)
-		std::cout << "\r";
+	while (!(std::cin >> id) || id > 7 || id < 0)
+		std::cout << "enter a valid index: ";
 	std::cout << std::setfill(' ') << std::setw(10);
 	std::cout << id << '|';
-	std::cout << this->contact[id].getFirstName() << '|';
-	std::cout << this->contact[id].getLastName() << '|';
-	std::cout << this->contact[id].getPhoneNumber() << '|';
-	std::cout << this->contact[id].getDarkestSecret() << '|';
+	this->contact[id].getFirstName();
+	this->contact[id].getLastName();
+	this->contact[id].getPhoneNumber();
+	this->contact[id].getDarkestSecret();
+	std::cout << std::endl;
 }
 

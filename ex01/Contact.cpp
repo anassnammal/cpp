@@ -3,77 +3,84 @@
 
 Contact::Contact(void)
 {
-
+	this->firstName = "";
+	this->lastName = "";
+	this->phoneNumber = "";
+	this->darkestSecret = "";
 }
 
 Contact::~Contact(void)
 {
-	
+	this->firstName = "";
+	this->lastName = "";
+	this->phoneNumber = "";
+	this->darkestSecret = "";
 }
 
 std::string	Contact::readInput(int (*format)(int))
 {
-	bool		notValid;
 	std::string	input;
+	bool		valid;
 
-	notValid = true;
-	while (notValid)
+	valid = false;
+	while (!valid)
 	{
-		notValid = false;
+		valid = true;
 		std::cin >> input;
 		for (std::string::iterator it = input.begin(); it != input.end(); it++)
 		{
-			if (!format(*it))
-				notValid = true;
+			if (format && !format(*it) && !std::isspace(*it))
+				valid = false;
 		}
-		std::cout << "\r";
 	}
+	if (input.length() > 10)
+		input = input.substr(0, 9) + '.';
 	return (input);
 }
 
-void Contact::setFirstName(void)
+void		Contact::setFirstName(void)
 {
 	std::cout << "Enter the first name :";
-	this->firstName = this->readInput(std::isalpha);
+	this->firstName = this->readInput(NULL);
 }
 
-void Contact::setLastName(void)
+void		Contact::setLastName(void)
 {
 	std::cout << "Enter the last name :";
-	this->lastName = this->readInput(std::isalpha);
+	this->lastName = this->readInput(NULL);
 }
 
-void Contact::setPhoneNumber(void)
+void		Contact::setPhoneNumber(void)
 {
 	std::cout << "Enter the phone number :";
 	this->phoneNumber = this->readInput(std::isdigit);
 }
 
-void Contact::setDarkestSecret(void)
+void		Contact::setDarkestSecret(void)
 {
 	std::cout << "Enter the darkest secret :";
-	this->darkestSecret = this->readInput(std::isalpha);
+	this->darkestSecret = this->readInput(NULL);
 }
 
-void	Contact::getFirstName(void) const
+void		Contact::getFirstName(void) const
 {
 	std::cout << std::setfill(' ') << std::setw(10);
 	std::cout << this->firstName;
 }
 
-void	Contact::getLastName(void) const
+void		Contact::getLastName(void) const
 {
 	std::cout << std::setfill(' ') << std::setw(10);
 	std::cout << this->lastName;
 }
 
-void	Contact::getPhoneNumber(void) const
+void		Contact::getPhoneNumber(void) const
 {
 	std::cout << std::setfill(' ') << std::setw(10);
 	std::cout << this->phoneNumber;
 }
 
-void	Contact::getDarkestSecret(void) const
+void		Contact::getDarkestSecret(void) const
 {
 	std::cout << std::setfill(' ') << std::setw(10);
 	std::cout << this->darkestSecret;
