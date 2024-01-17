@@ -8,19 +8,17 @@ class Contact {
 	std::string	lastName;
 	std::string	phoneNumber;
 	std::string	darkestSecret;
-
-	std::string	readInput(int (*format)(int));
 public:
 	Contact();
 	~Contact();
 
-	void		setFirstName(void);
-	void		setLastName(void);
-	void		setPhoneNumber(void);
-	void		setDarkestSecret(void);
+	void		setFirstName(std::string input);
+	void		setLastName(std::string input);
+	void		setPhoneNumber(std::string input);
+	void		setDarkestSecret(std::string input);
 	
-	void	getFirstName(void) const;
-	void	getLastName(void) const;
-	void	getPhoneNumber(void) const;
-	void	getDarkestSecret(void) const;
+	std::string	getFirstName(void) const;
+	std::string	getLastName(void) const;
+	std::string	getPhoneNumber(void) const;
+	std::string	getDarkestSecret(void) const;
 };
