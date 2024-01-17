@@ -27,7 +27,7 @@ void	PhoneBook::searchContact(void) const
 	std::cout << "enter an index: ";
 	while (!(std::cin >> id) || id > 7)
 		std::cout << "\r";
-	std::cout << std::setw(10);
+	std::cout << std::setfill(' ') << std::setw(10);
 	std::cout << id << '|';
 	std::cout << this->contact[id].getFirstName() << '|';
 	std::cout << this->contact[id].getLastName() << '|';

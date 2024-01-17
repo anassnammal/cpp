@@ -19,8 +19,8 @@ public:
 	void		setPhoneNumber(void);
 	void		setDarkestSecret(void);
 	
-	std::string	getFirstName(void) const;
-	std::string	getLastName(void) const;
-	std::string	getPhoneNumber(void) const;
-	std::string	getDarkestSecret(void) const;
+	void	getFirstName(void) const;
+	void	getLastName(void) const;
+	void	getPhoneNumber(void) const;
+	void	getDarkestSecret(void) const;
 };

@@ -1,4 +1,5 @@
 #include "Contact.hpp"
+#include <iomanip>
 
 Contact::Contact(void)
 {
@@ -54,22 +55,26 @@ void Contact::setDarkestSecret(void)
 	this->darkestSecret = this->readInput(std::isalpha);
 }
 
-std::string	Contact::getFirstName(void) const
+void	Contact::getFirstName(void) const
 {
-	return (this->firstName);
+	std::cout << std::setfill(' ') << std::setw(10);
+	std::cout << this->firstName;
 }
 
-std::string	Contact::getLastName(void) const
+void	Contact::getLastName(void) const
 {
-	return (this->lastName);
+	std::cout << std::setfill(' ') << std::setw(10);
+	std::cout << this->lastName;
 }
 
-std::string	Contact::getPhoneNumber(void) const
+void	Contact::getPhoneNumber(void) const
 {
-	return (this->phoneNumber);
+	std::cout << std::setfill(' ') << std::setw(10);
+	std::cout << this->phoneNumber;
 }
 
-std::string	Contact::getDarkestSecret(void) const
+void	Contact::getDarkestSecret(void) const
 {
-	return (this->darkestSecret);
+	std::cout << std::setfill(' ') << std::setw(10);
+	std::cout << this->darkestSecret;
 }

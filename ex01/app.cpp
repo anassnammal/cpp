@@ -5,7 +5,7 @@ int	main(void)
 	PhoneBook	phoneBook;
 	std::string input;
 
-	std::cout << "Phone Book $>";
+	std::cout << "Phone Book $> ";
 	while ((std::cin >> input) && input != "EXIT")
 	{
 		if (input == "ADD")
