@@ -37,11 +37,12 @@ void		Contact::setDarkestSecret(std::string input)
 
 void	Contact::printContact(void) const
 {
-	std::cout << std::setw(10);
-	std::cout << this->firstName << '|';
-	std::cout << this->lastName << '|';
-	std::cout << this->nickName << '|';
-	std::cout << this->phoneNumber << '|';
-	std::cout << this->darkestSecret << '|';
+
+	std::cout << std::setw(10) << this->firstName << '|';
+	std::cout << std::setw(10) << this->lastName <<  '|';
+	std::cout << std::setw(10) << this->nickName << '|';
+	std::cout << std::setw(10) << this->phoneNumber << '|';
+	std::cout << std::setw(10) << this->darkestSecret << '|';
+	std::cout << std::endl;
 }
 

@@ -72,5 +72,6 @@
         "random": "cpp",
         "numbers": "cpp",
         "cinttypes": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
