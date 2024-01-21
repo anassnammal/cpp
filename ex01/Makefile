@@ -10,8 +10,6 @@ $(NAME): $(OBJ)
 	c++ $(FLG) -c $<
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(NAME) $(OBJ)
 
 re: clean $(NAME)
-
-

@@ -1,8 +1,8 @@
 #include "PhoneBook.hpp"
-#include <iomanip>
 
 PhoneBook::PhoneBook(void)
 {
+	this->size = 0;
 	this->it = 0;
 }
 
@@ -11,34 +11,22 @@ PhoneBook::~PhoneBook(void)
 	 
 }
 
-std::string PhoneBook::parseInput(void) const
+void	PhoneBook::addContact(std::string attr[5])
 {
-
-}
-
-void	PhoneBook::addContact(void)
-{
-	int	i = this->it;
-	std::string	(*rdInp)(void);
-	
-	rdInp = this->parseInput;
-	this->contact[i].setFirstName();
-	this->contact[i].setLastName();
-	this->contact[i].setPhoneNumber();
-	this->contact[i].setDarkestSecret();
+	Contact	c = this->contact[this->it];
+	c.setFirstName(attr[0]);
+	c.setLastName(attr[1]);
+	c.setNickName(attr[2]);
+	c.setPhoneNumber(attr[3]);
+	c.setDarkestSecret(attr[4]);
+	this->size += (this->size < 8);
 	++(this->it) %= 8;
 }
 
-void	PhoneBook::searchContact(int id) const
+const Contact	*PhoneBook::searchContact(int id) const
 {
-	std::cout << "enter an index: ";
-	while (!(std::cin >> id) || id > 7 || id < 0)
-		std::cout << "enter a valid index: ";
-	std::cout << std::setfill(' ') << std::setw(10);
-	std::cout << this->contact[id].getFirstName() << '|';
-	std::cout << this->contact[id].getLastName() << '|';
-	std::cout << this->contact[id].getPhoneNumber() << '|';
-	std::cout << this->contact[id].getDarkestSecret() << '|';
-	std::cout << std::endl;
+	if (id >= this->size)
+		return (NULL);
+	return (&this->contact[id]);
 }
 
