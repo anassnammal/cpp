@@ -1,21 +1,42 @@
 #include <iostream> 
 #include <iomanip>
 
-int main () {
-	std::string	input = "   anasss   nsshh  j    ";
-	int	start = 0;
-	int	end;
+#define SPACES " \n\t\r\f\v"
 
-	// std::getline(std::cin, input); 
-	while (start > -1)
+static std::string	read_from_input(void)
+{
+	std::string input;
+	int			s, e;
+
+	do
 	{
-		start = input.find_first_of(" \n\t\r\f\v", start);
-		if (start > -1)
-			input.erase(start, end - start);
-		end  = input.find_first_not_of(" \n\t\r\f\v", start);
-		end = end > -1 ? end - (bool)start : input.end() - input.begin();
-		std::cout << input << std::endl;
-		start += (start > -1);
+		std::getline(std::cin, input);
+		if (!std::cin.good())
+			std::exit(0);
+		do
+		{
+			s = input.find_first_of(SPACES, s);
+			e = input.find_first_not_of(SPACES, s);
+			if (s > -1)
+			{
+				if (s == 0 || e == -1)
+					input.erase(s, e - s);
+				else
+					input.replace(s, e - s, " ");
+				s++;
+			}
+		} while (e != -1);
+		
 	}
+	while (input.empty());
+
+	return (input);
+}
+
+int main () {
+	std::string	input = read_from_input();
+
+	std::cout << input << std::endl;
+
   return 0;
 }

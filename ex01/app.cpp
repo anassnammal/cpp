@@ -3,32 +3,28 @@
 #include <iomanip>
 #include <string>
 
-static std::string	read_from_input(void)
+#define SPACES " \n\t\r\f\v"
+
+#include <sstream>
+static std::string	read_from_input(bool digit)
 {
-	std::string input;
+	std::stringstream input;
+	int			s, e;
 
 	do
 	{
 		std::getline(std::cin, input);
 		if (!std::cin.good())
 			std::exit(0);
+		input.ignore()
+		
+			
+		if (digit && input.find_first_not_of("0123456789") > - 1)
+			digit = false;
+
 	}
-	while (input.empty());
-
+	while (input.empty() || !digit);
 	return (input);
-}
-
-static void			trim_spaces(std::string *s)
-{
-	do
-	{
-		int	start = s->find_first_of(" \n\t\r\f\v");
-		int	end = s->find_first_not_of(" \n\t\r\f\v");
-		s->erase()
-	} while ();
-	
-	
-	
 }
 
 static void	add_contact(PhoneBook *pb)
@@ -44,8 +40,7 @@ static void	add_contact(PhoneBook *pb)
 	for (size_t i = 0; i < 5; i++)
 	{
 		std::cout << "Enter contact " << input[i] << ' ';
-		input[i] = read_from_input();
-		trim_spaces(&input[i]);
+		input[i] = read_from_input(i == 3);
 		if (input[i].length() > 10)
 		{
 			input[i].resize(10);
@@ -61,8 +56,7 @@ static void	search_contact(PhoneBook *pb)
 	std::string input;
 
 	std::cout << "search for contact by index: ";
-	input = read_from_input();
-	// input.find("")
+	input = read_from_input(true);
 	contact = pb->searchContact(std::stoi(input));
 	if (!contact)
 		std::cout << "invalid index" << std::endl;
@@ -79,7 +73,8 @@ int	main(void)
 	do
 	{
 		std::cout << "Enter a COMMAND <ADD> <SEARCH> <EXIT>: ";
-		input = read_from_input();
+		input = read_from_input(false);
+		std::cout << input << std::endl;
 		if (input == "ADD")
 			add_contact(&phoneBook);
 		else if (input == "SEARCH")
