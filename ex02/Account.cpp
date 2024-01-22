@@ -1,5 +1,6 @@
 #include "Account.hpp"
 #include <iostream>
+#include <ctime>
 
 int	Account::_nbAccounts = 0;
 int	Account::_totalAmount = 0;
@@ -62,20 +63,46 @@ void	Account::displayAccountsInfos( void )
 // public member funcs
 void	Account::makeDeposit( int deposit )
 {
+	Account::_displayTimestamp();
+	std::cout << "index:";
+	std::cout << this->_accountIndex << ';';
+	std::cout << "p_amount:";
+	std::cout << this->_amount << ';';
+	std::cout << "deposit:";
+	std::cout << deposit << ';';
 	this->_amount += deposit;
 	this->_nbDeposits++;
 	Account::_totalAmount += deposit;
 	Account::_totalNbDeposits++;
+	std::cout << "amount:";
+	std::cout << this->_amount << ';';
+	std::cout << "nb_deposits:";\
+	std::cout << this->_nbDeposits << std::endl;
 }
 
 bool	Account::makeWithdrawal( int withdrawal ) 
 {
-	if (this->checkAmount() < withdrawal)
-		return (false);
-	this->_amount -= withdrawal;
-	this->_nbWithdrawals++;
-	Account::_totalAmount -= withdrawal;
-	Account::_totalNbWithdrawals++;
+	Account::_displayTimestamp();
+	std::cout << "index:";
+	std::cout << this->_accountIndex << ';';
+	std::cout << "p_amount:";
+	std::cout << this->_amount << ';';
+	std::cout << "withdrawal:";
+	if (this->checkAmount() >= withdrawal)
+	{
+		std::cout << withdrawal << ';';
+		this->_amount -= withdrawal;
+		this->_nbWithdrawals++;
+		Account::_totalAmount -= withdrawal;
+		Account::_totalNbWithdrawals++;
+		std::cout << "amount:";
+		std::cout << this->_amount << ';';
+		std::cout << "nb_withdrawals:";\
+		std::cout << this->_nbWithdrawals << std::endl;
+		return (true);
+	}
+	else
+		std::cout << "refused" << std::endl;
 	return (true);
 }
 
@@ -102,9 +129,8 @@ void	Account::_displayTimestamp( void )
 {
 	std::time_t rawtime;
 	std::tm * timeinfo;
-	char buffer[100];
+	char buffer[19];
 
-	std::memset(buffer, 0, sizeof(buffer));
 	std::time(&rawtime);
 	timeinfo = std::localtime(&rawtime);
 	std::strftime(buffer, sizeof(buffer), "[%Y%m%d_%H%M%S] ", timeinfo);
