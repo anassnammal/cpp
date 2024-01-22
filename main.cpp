@@ -1,42 +1,18 @@
 #include <iostream> 
-#include <iomanip>
 
-#define SPACES " \n\t\r\f\v"
-
-static std::string	read_from_input(void)
+int main ()
 {
-	std::string input;
-	int			s, e;
+	std::time_t rawtime;
+	std::tm * timeinfo;
+	char buffer[80];
 
-	do
-	{
-		std::getline(std::cin, input);
-		if (!std::cin.good())
-			std::exit(0);
-		do
-		{
-			s = input.find_first_of(SPACES, s);
-			e = input.find_first_not_of(SPACES, s);
-			if (s > -1)
-			{
-				if (s == 0 || e == -1)
-					input.erase(s, e - s);
-				else
-					input.replace(s, e - s, " ");
-				s++;
-			}
-		} while (e != -1);
-		
-	}
-	while (input.empty());
+	std::time(&rawtime);
+	timeinfo = std::localtime(&rawtime);
 
-	return (input);
-}
+	std::strftime(buffer, sizeof(buffer), "[%Y%m%d_%H%M%S] ", timeinfo);
+	std::string str(buffer);
 
-int main () {
-	std::string	input = read_from_input();
+	std::cout << str;
 
-	std::cout << input << std::endl;
-
-  return 0;
+	return 0;
 }

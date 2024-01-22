@@ -4,6 +4,9 @@
 #include <iostream>
 #include <iomanip>
 
+#define BG_COLOR "\033[1;47m"
+#define BG_NOCLR "\033[0m"
+
 class Contact {
 	std::string	firstName;
 	std::string	lastName;

@@ -4,12 +4,12 @@
 #include <string>
 
 class PhoneBook {
-	Contact contact[8];
-	int		size;
-	int		it;
+	Contact		contact[8];
+	unsigned int	size;
+	unsigned int	it;
 public:
 	PhoneBook(void);
 	~PhoneBook(void);
 	void	addContact(std::string attr[5]);
-	const Contact	*searchContact(int id) const;
+	const Contact	*searchContact(unsigned int id) const;
 };

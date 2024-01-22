@@ -23,7 +23,7 @@ void	PhoneBook::addContact(std::string input[5])
 	++(this->it) %= 8;
 }
 
-const Contact	*PhoneBook::searchContact(int id) const
+const Contact	*PhoneBook::searchContact(unsigned int id) const
 {
 	if (id >= this->size)
 		return (NULL);
