@@ -1,0 +1,19 @@
+NAME=ZombieHorde
+SRC=main.cpp Zombie.cpp zombieHorde.cpp
+OBJ=$(SRC:.cpp=.o)
+CFLAG= -std=c++98 -Wall -Wextra -Werror
+COMPILER=c++
+
+all : $(NAME)
+
+$(NAME) : $(OBJ)
+	$(COMPILER) $(CFLAG) $(OBJ) -o $@
+
+%.o : %.cpp
+	$(COMPILER) $(CFLAG) -c $^
+
+clean :
+	rm -rf $(NAME) $(OBJ)
+
+re : clean all
+
