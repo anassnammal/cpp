@@ -1,5 +1,5 @@
-NAME=notLoser
-SRC=main.cpp
+NAME=Harl
+SRC=main.cpp Harl.cpp
 OBJ=$(SRC:.cpp=.o)
 CFLAG= -std=c++98 -Wall -Wextra -Werror
 COMPILER=c++
