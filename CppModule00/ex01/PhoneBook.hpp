@@ -2,14 +2,23 @@
 
 #include "Contact.hpp"
 #include <string>
+#include <iostream>
+#include <sstream>
 
 class PhoneBook {
-	Contact		contact[8];
-	unsigned int	size;
-	unsigned int	it;
+	Contact	contact[8];
+	int		size;
+	int		it;
+
+	static std::string	_prompt(bool d);
+	static void			printContact(Contact const & c);
+
 public:
 	PhoneBook(void);
 	~PhoneBook(void);
-	void	addContact(std::string attr[5]);
-	const Contact	*searchContact(unsigned int id) const;
+	
+	void 	listContact(void);
+	void	addContact(void);
+	void	searchContact(void) const;
+
 };

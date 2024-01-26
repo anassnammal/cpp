@@ -17,11 +17,15 @@ public:
 	Contact();
 	~Contact();
 
-	void		setFirstName(std::string input);
-	void		setLastName(std::string input);
-	void		setNickName(std::string input);
-	void		setPhoneNumber(std::string input);
-	void		setDarkestSecret(std::string input);
+	void				setFirstName(std::string input);
+	void				setLastName(std::string input);
+	void				setNickName(std::string input);
+	void				setPhoneNumber(std::string input);
+	void				setDarkestSecret(std::string input);
 
-	void		printContact(void) const;
+	std::string const &	getFirstName(void) const;
+	std::string const &	getLastName(void) const;
+	std::string const &	getNickName(void) const;
+	std::string const &	getPhoneNumber(void) const;
+	std::string const &	getDarkestSecret(void) const;
 };

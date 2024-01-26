@@ -1,31 +1,6 @@
 #include "PhoneBook.hpp"
 #include <sstream>
 
-static std::string	read_from_input(bool d)
-{
-	std::stringstream	input_stream;
-	std::string			input;
-	std::string			parsed;
-
-
-	std::getline(std::cin, input);
-	if (!std::cin.good())
-		std::exit(0);
-	else if (!input.empty())
-	{
-		input_stream.str(input);
-		while ((input_stream >> input))
-			parsed += input + ' ';
-		parsed.erase(parsed.end() - 1);
-		if (d)
-		{
-			std::size_t p = parsed.find_first_not_of(" 0123456789");
-			if (p != (std::size_t)-1) parsed.clear();
-		}
-	}
-	return (parsed);
-}
-
 static void	add_contact(PhoneBook *pb)
 {
 	std::string	input[5];
@@ -61,6 +36,14 @@ static void	search_contact(PhoneBook *pb)
 	std::string		input;
 	unsigned int	id;
 
+	std::cout << BG_COLOR;
+	std::cout << std::setw(10) << "Index"<< '|';
+	std::cout << std::setw(10) << "first Name"<< '|';
+	std::cout << std::setw(10) << "Last name"<< '|';
+	std::cout << std::setw(10) << "Nickname"<< '|';
+	std::cout << BG_NOCLR << std::endl;
+	
+	pb->printContacts();
 	do
 	{
 		std::cout << BG_COLOR;
@@ -74,12 +57,6 @@ static void	search_contact(PhoneBook *pb)
 		std::cout << "invalid index" << std::endl;
 	else
 	{
-		std::cout << BG_COLOR;
-		std::cout << std::setw(10) << "Index"<< '|';
-		std::cout << std::setw(10) << "first Name"<< '|';
-		std::cout << std::setw(10) << "Last name"<< '|';
-		std::cout << std::setw(10) << "Nickname"<< '|';
-		std::cout << BG_NOCLR << std::endl;
 		std::cout << std::setw(10) << id << '|';
 		contact->printContact();
 	}

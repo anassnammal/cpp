@@ -1,14 +1,16 @@
 #include <iostream>
-#include <algorithm>
+#include <string>
 
-void	makeItLoud(char const **av, size_t n)
+void	makeItLoud(std::string input)
 {
-	for (size_t i = 0; i < n; i++)
+	int	len = input.length();
+
+	for (int i = 0; i < len; i++)
 	{
-		std::string msg(av[i]);
-		std::transform(msg.begin(), msg.end(), msg.begin(), ::toupper);
-		std::cout << msg;
+		char &cur = input.at(i);
+		cur = ::toupper(cur);
 	}
+	std::cout << input;
 }	
 
 int main(int ac, char const **av)
@@ -16,7 +18,10 @@ int main(int ac, char const **av)
 	if (ac < 2)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
 	else
-		makeItLoud(av + 1, ac - 1);
+	{
+		for (int i = 1; i < ac; i++)
+			makeItLoud(av[i]);
+	}
 	std::cout << std::endl;
 	return 0;
 }

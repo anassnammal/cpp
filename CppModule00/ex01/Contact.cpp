@@ -35,11 +35,27 @@ void		Contact::setDarkestSecret(std::string input)
 	this->darkestSecret = input;
 }
 
-void	Contact::printContact(void) const
+std::string const &		Contact::getFirstName(void) const
 {
-	std::cout << std::setw(10) << this->firstName << '|';
-	std::cout << std::setw(10) << this->lastName <<  '|';
-	std::cout << std::setw(10) << this->nickName << '|';
-	std::cout << std::endl;
+	return (this->firstName);
 }
 
+std::string const &		Contact::getLastName(void) const
+{
+	return (this->lastName);
+}
+
+std::string const &		Contact::getNickName(void) const
+{
+	return (this->nickName);
+}
+
+std::string const &		Contact::getPhoneNumber(void) const
+{
+	return (this->phoneNumber);
+}
+
+std::string const &		Contact::getDarkestSecret(void) const
+{
+	return (this->darkestSecret);
+}
