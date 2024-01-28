@@ -12,45 +12,45 @@ PhoneBook::~PhoneBook(void)
 	 
 }
 
-void	PhoneBook::addContact(void)
+void			PhoneBook::addContact(void)
 {
 	Contact	&c = this->contact[this->it];
-	std::cout << "Enter contact First Name: ";
+	std::cout << "Enter contact First Name: " << std::endl;
 	c.setFirstName( PhoneBook::_prompt(false) );
-	std::cout << "Enter contact Last Name: ";
+	std::cout << "Enter contact Last Name: " << std::endl;
 	c.setLastName( PhoneBook::_prompt(false) );
-	std::cout << "Enter contact Nick Name: ";
+	std::cout << "Enter contact Nick Name: " << std::endl;
 	c.setNickName( PhoneBook::_prompt(false) );
-	std::cout << "Enter contact Phone Number: ";
+	std::cout << "Enter contact Phone Number: " << std::endl;
 	c.setPhoneNumber( PhoneBook::_prompt(true) );
-	std::cout << "Enter contact Darkest Secret: ";
+	std::cout << "Enter contact Darkest Secret: " << std::endl;
 	c.setDarkestSecret( PhoneBook::_prompt(false) );
 	this->size += (this->size < 8);
 	++(this->it) %= 8;
 }
 
-std::string	PhoneBook::_prompt(bool d)
+std::string		PhoneBook::_prompt(bool d)
 {
 	std::stringstream	input_stream;
 	std::string			input;
 	std::string			parsed;
 
-
-	std::getline(std::cin, input);
-	if (!std::cin.good())
-		std::exit(0);
-	else if (!input.empty())
+	do
 	{
-		input_stream.str(input);
-		while ((input_stream >> input))
-			parsed += input + ' ';
-		parsed.erase(parsed.end() - 1);
-		if (d)
+		std::getline(std::cin, input);
+		if (!std::cin.good())
+			std::exit(0);
+		else if (!input.empty())
 		{
-			std::size_t p = parsed.find_first_not_of(" 0123456789");
-			if (p != (std::size_t)-1) parsed.clear();
+			input_stream.str(input);
+			while ((input_stream >> input))
+				parsed += input + ' ';
+			parsed.pop_back();
+			std::size_t p = parsed.find_first_not_of("0123456789", (parsed[0] == '+'));
+			if (d && p != std::string::npos) parsed.clear();
 		}
-	}
+	} while (parsed.empty());
+	
 	return (parsed);
 }
 
@@ -71,23 +71,23 @@ void			PhoneBook::listContact(void)
 	std::cout << std::setw(10) << "Nick Name" << std::endl;
 	for (int i = 0; i < this->size; ++i)
 	{
-		std::cout << std::setw(10) << i << "|";
-		std::cout << std::setw(10) << this->contact[i].getFirstName() << "|";
-		std::cout << std::setw(10) << this->contact[i].getLastName() << "|";
-		std::cout << std::setw(10) << this->contact[i].getNickName() << std::endl;
+		std::string const fname = this->contact[i].getFirstName();
+		std::string const lname = this->contact[i].getLastName();
+		std::string const nname = this->contact[i].getNickName();
+		std::cout << std::setw(10) << i + 1 << "|";
+		std::cout << std::setw(10) << fname.length() > 10 ? fname.replace() << "|";
+		std::cout << std::setw(10) << lname << "|";
+		std::cout << std::setw(10) << nname << std::endl;
 	}
 }
 
 void			PhoneBook::searchContact(void) const
 {
-	int			index;
+	int			i;
 
-	index = -1;
-	while (index < 0 || index >= this->size)
-	{
-		do
-			std::cout << "Enter index: ";
-		while (!(std::cin >> index));
-	}
-	PhoneBook::printContact(this->contact[index]);
+	i = 0;
+	do
+		std::cout << "Enter index: ";
+	while (!((std::cin >> i) && i > 0 && i <= this->size));
+	PhoneBook::printContact(this->contact[i - 1]);
 }
