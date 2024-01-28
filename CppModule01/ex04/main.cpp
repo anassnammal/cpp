@@ -37,5 +37,7 @@ int main(int ac, char const **av)
 		infile.close();
 		outfile.close();
 	}
+	else
+		std::cout << "USAGE: [file] [string_to_replace] [replacement_string]" << std::endl;
 	return 0;
 }

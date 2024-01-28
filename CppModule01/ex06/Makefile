@@ -1,4 +1,4 @@
-NAME=Harl
+NAME=HarlFilter
 SRC=main.cpp Harl.cpp
 OBJ=$(SRC:.cpp=.o)
 CFLAG= -std=c++98 -Wall -Wextra -Werror

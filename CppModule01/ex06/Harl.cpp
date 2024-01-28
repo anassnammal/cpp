@@ -16,22 +16,22 @@ Harl::~Harl(void)
 
 void	Harl::debug(void)
 {
-	std::cout << "@debug";
+	std::cout << "wellcome to @debug level!";
 }
 
 void	Harl::info(void)
 {
-	std::cout << "@info";
+	std::cout << "hey this is @info level!";
 }
 
 void	Harl::warning(void)
 {
-	std::cout << "@warning";
+	std::cout << "pay attention, this is @warning level!";
 }
 
 void	Harl::error(void)
 {
-	std::cout << "@error";
+	std::cout << "watch-out this is @error level!";
 }
 
 void	Harl::complain(std::string level)
