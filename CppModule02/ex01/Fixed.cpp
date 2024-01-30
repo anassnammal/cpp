@@ -5,6 +5,16 @@ Fixed::Fixed( void )
 	this->value = 0;
 }
 
+Fixed::Fixed( int const n )
+{
+	
+}
+
+Fixed::Fixed( float const n )
+{
+
+}
+
 Fixed::Fixed( Fixed &tmp )
 {
 	*this = tmp;

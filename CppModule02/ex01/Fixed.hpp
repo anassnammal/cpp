@@ -8,9 +8,11 @@ class Fixed
 
 public:
 
-	Fixed(void);
-	Fixed(Fixed &tmp);
-	~Fixed(void);
+	Fixed( void );
+	Fixed( int const n );
+	Fixed( float const n );
+	Fixed( Fixed &tmp );
+	~Fixed( void );
 
 	Fixed &	operator=(Fixed const &tmp);
 
