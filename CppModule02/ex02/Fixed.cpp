@@ -57,3 +57,99 @@ std::ostream &	operator<<(std::ostream &o, Fixed const &tmp)
 	o << tmp.toFloat();
 	return (o);
 }
+
+bool	Fixed::operator>(Fixed const & r)
+{
+	return (this->toFloat() > r.toFloat());
+}
+
+bool	Fixed::operator<(Fixed const & r)
+{
+	return (this->toFloat() < toFloat());
+}
+
+bool	Fixed::operator>=(Fixed const & r)
+{
+	return (this->toFloat() >= toFloat());
+}
+
+bool	Fixed::operator<=(Fixed const & r)
+{
+	return (this->toFloat() <= toFloat());
+}
+
+bool	Fixed::operator==(Fixed const & r)
+{
+	return (this->toFloat() == toFloat());
+}
+
+bool	Fixed::operator!=(Fixed const & r)
+{
+	return (this->toFloat() != toFloat());
+}
+
+Fixed	Fixed::operator+(Fixed const & r)
+{
+	return (Fixed(this->value + r.getRawBits()));
+}
+
+Fixed	Fixed::operator-(Fixed const & r)
+{
+	return (Fixed(this->value - r.getRawBits()));
+}
+
+Fixed	Fixed::operator*(Fixed const & r)
+{
+	return (Fixed(this->value * r.getRawBits()));
+}
+
+Fixed	Fixed::operator/(Fixed const & r)
+{
+	return (Fixed(this->value / r.getRawBits()));
+}
+
+Fixed	Fixed::operator++(int)
+{
+	Fixed	tmp = *this;
+	(*this)++;
+	return (tmp);
+}
+
+Fixed	Fixed::operator--(int)
+{
+	Fixed	tmp = *this;
+	(*this)--;
+	return (tmp);
+}
+
+Fixed &	Fixed::operator++(void)
+{
+	this->value++;
+	return (*this);	
+}
+
+Fixed &	Fixed::operator--(void)
+{
+	this->value--;
+	return (*this);
+}
+
+Fixed & Fixed::min(Fixed &f1, Fixed &f2)
+{
+	return (f1 > f2 ? f1 : f2);
+}
+
+Fixed const & Fixed::min(Fixed const &f1, Fixed const &f2)
+{
+	return (f1 > f2 ? f1 : f2);
+}
+
+Fixed & Fixed::max(Fixed &f1, Fixed &f2)
+{
+	return (f1 < f2 ? f1 : f2);
+}
+
+Fixed const & Fixed::max(Fixed const &f1, Fixed const &f2)
+{
+	return (f1 < f2 ? f1 : f2);
+}

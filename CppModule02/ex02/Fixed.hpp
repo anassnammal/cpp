@@ -23,9 +23,27 @@ public:
 	int		toInt( void ) const;
 	float	toFloat( void ) const;
 
+	bool	operator>(Fixed const & r);
+	bool	operator<(Fixed const & r);
+	bool	operator>=(Fixed const & r);
+	bool	operator<=(Fixed const & r);
+	bool	operator==(Fixed const & r);
+	bool	operator!=(Fixed const & r);
 
-	// • The 6 comparison operators: >, <, >=, <=, == and !=
-	Fixed
+	Fixed	operator+(Fixed const & r);
+	Fixed	operator-(Fixed const & r);
+	Fixed	operator*(Fixed const & r);
+	Fixed	operator/(Fixed const & r);
+
+	Fixed	operator++(int);
+	Fixed	operator--(int);
+	Fixed &	operator++(void);
+	Fixed &	operator--(void);
+	
+	static Fixed &min(Fixed &f1, Fixed &f2);
+	static Fixed const &min(Fixed const &f1, Fixed const &f2);
+	static Fixed &max(Fixed &f1, Fixed &f2);
+	static Fixed const &max(Fixed const &f1, Fixed const &f2);
 };
 
 std::ostream &	operator<<(std::ostream &o, Fixed const &tmp);
