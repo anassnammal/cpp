@@ -9,7 +9,7 @@ class Fixed
 public:
 
 	Fixed(void);
-	Fixed(Fixed &tmp);
+	Fixed(Fixed const &tmp);
 	~Fixed(void);
 
 	Fixed &	operator=(Fixed const &tmp);

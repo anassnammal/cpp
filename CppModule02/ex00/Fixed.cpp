@@ -5,7 +5,7 @@ Fixed::Fixed( void )
 	this->value = 0;
 }
 
-Fixed::Fixed( Fixed &tmp )
+Fixed::Fixed( Fixed const &tmp )
 {
 	*this = tmp;
 }

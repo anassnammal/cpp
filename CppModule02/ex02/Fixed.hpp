@@ -23,6 +23,9 @@ public:
 	int		toInt( void ) const;
 	float	toFloat( void ) const;
 
+
+	// • The 6 comparison operators: >, <, >=, <=, == and !=
+	Fixed
 };
 
 std::ostream &	operator<<(std::ostream &o, Fixed const &tmp);
