@@ -1,9 +1,8 @@
 #include "Fixed.hpp"
-#include <cmath>
 
-Fixed::Fixed( void )
+Fixed::Fixed( void ) : value(0)
 {
-	this->value = 0;
+
 }
 
 Fixed::Fixed( int const n ) : value(n * (1 << Fixed::f))
@@ -49,7 +48,7 @@ float	Fixed::toFloat( void ) const
 
 int		Fixed::toInt( void ) const
 {
-	return (this->value / (1 << Fixed::f));
+	return (this->value >> Fixed::f);
 }
 
 std::ostream &	operator<<(std::ostream &o, Fixed const &tmp)
@@ -88,22 +87,28 @@ bool	Fixed::operator!=(Fixed const & r) const
 	return (this->toFloat() != r.toFloat());
 }
 
-Fixed	Fixed::operator+(Fixed const & r)
+Fixed	Fixed::operator+(Fixed const & r) const
 {
-	return (Fixed(this->value + r.getRawBits()));
+	Fixed res;
+
+	res.setRawBits(this->value + r.getRawBits());
+	return (res);
 }
 
-Fixed	Fixed::operator-(Fixed const & r)
+Fixed	Fixed::operator-(Fixed const & r) const
 {
-	return (Fixed(this->value - r.getRawBits()));
+	Fixed res;
+
+	res.setRawBits(this->value - r.getRawBits());
+	return (res);
 }
 
-Fixed	Fixed::operator*(Fixed const & r)
+Fixed	Fixed::operator*(Fixed const & r) const
 {
 	return (Fixed(this->toFloat() * r.toFloat()));
 }
 
-Fixed	Fixed::operator/(Fixed const & r)
+Fixed	Fixed::operator/(Fixed const & r) const
 {
 	return (Fixed(this->toFloat() / r.toFloat()));
 }

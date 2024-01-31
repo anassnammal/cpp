@@ -1,5 +1,4 @@
 #include "Fixed.hpp"
-#include <cmath>
 
 Fixed::Fixed( void )
 {
@@ -88,22 +87,28 @@ bool	Fixed::operator!=(Fixed const & r) const
 	return (this->toFloat() != r.toFloat());
 }
 
-Fixed	Fixed::operator+(Fixed const & r)
+Fixed	Fixed::operator+(Fixed const & r) const
 {
-	return (Fixed(this->value + r.getRawBits()));
+	Fixed res;
+
+	res.setRawBits(this->value + r.getRawBits());
+	return (res);
 }
 
-Fixed	Fixed::operator-(Fixed const & r)
+Fixed	Fixed::operator-(Fixed const & r) const
 {
-	return (Fixed(this->value - r.getRawBits()));
+	Fixed res;
+
+	res.setRawBits(this->value - r.getRawBits());
+	return (res);
 }
 
-Fixed	Fixed::operator*(Fixed const & r)
+Fixed	Fixed::operator*(Fixed const & r) const
 {
 	return (Fixed(this->toFloat() * r.toFloat()));
 }
 
-Fixed	Fixed::operator/(Fixed const & r)
+Fixed	Fixed::operator/(Fixed const & r) const
 {
 	return (Fixed(this->toFloat() / r.toFloat()));
 }

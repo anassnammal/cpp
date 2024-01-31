@@ -1,5 +1,4 @@
 #include "Fixed.hpp"
-#include <cmath>
 
 Fixed::Fixed( void )
 {
@@ -49,7 +48,7 @@ float	Fixed::toFloat( void ) const
 
 int		Fixed::toInt( void ) const
 {
-	return (this->value / (1 << Fixed::f));
+	return (this->value >> Fixed::f);
 }
 
 std::ostream &	operator<<(std::ostream &o, Fixed const &tmp)

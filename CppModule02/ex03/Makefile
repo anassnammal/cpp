@@ -1,12 +1,12 @@
 NAME=bsp
-SRC=main.cpp Fixed.cpp Point.hpp Point.cpp bsp.cpp
+SRC=main.cpp Fixed.cpp Point.cpp bsp.cpp
 OBJ=$(SRC:.cpp=.o)
 FLAGS=-std=c++98 -Wall -Wextra -Werror
 COMP=c++
 
 all: $(NAME)
 
-$(NAME): $(OBJ) Fixed.hpp
+$(NAME): $(OBJ) Fixed.hpp Point.hpp
 	$(COMP) $(FLAGS) $(OBJ) -o $(NAME)
 
 %.o: %.cpp

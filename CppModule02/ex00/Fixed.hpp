@@ -4,7 +4,7 @@ class Fixed
 {
 	int	value;
 
-	static int const f = 0;
+	static int const f = 8;
 
 public:
 

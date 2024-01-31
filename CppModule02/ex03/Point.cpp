@@ -2,12 +2,13 @@
 
 Point::Point(void) : x(0), y(0)
 {
+	std::cout << "def" << std::endl;
 
 }
 
-Point::Point(Point const & p)
+Point::Point(Point const & p) : x(p.getX()), y(p.getY())
 {
-    *this = p;
+
 }
 
 Point::Point(float const x, float const y) : x(x), y(y)
@@ -22,7 +23,8 @@ Point::~Point(void)
 
 Point& Point::operator=(Point const & p)
 {
-    
+    (void)p;
+	return (*this);
 }
 
 Fixed const & Point::getX(void) const

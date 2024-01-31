@@ -1,7 +1,8 @@
 #pragma once
  
 #include <iostream>
- 
+#include <cmath>
+
 class Fixed
 {
 	int	value;
@@ -30,16 +31,17 @@ public:
 	bool	operator==(Fixed const & r) const;
 	bool	operator!=(Fixed const & r) const;
 
-	Fixed	operator+(Fixed const & r);
-	Fixed	operator-(Fixed const & r);
-	Fixed	operator*(Fixed const & r);
-	Fixed	operator/(Fixed const & r);
+	Fixed	operator+(Fixed const & r) const;
+	Fixed	operator-(Fixed const & r) const;
+	Fixed	operator*(Fixed const & r) const;
+	Fixed	operator/(Fixed const & r) const;
 
 	Fixed	operator++(int);
 	Fixed	operator--(int);
 	Fixed &	operator++(void);
 	Fixed &	operator--(void);
 	
+
 	static Fixed &min(Fixed &f1, Fixed &f2);
 	static Fixed const &min(Fixed const &f1, Fixed const &f2);
 	static Fixed &max(Fixed &f1, Fixed &f2);
