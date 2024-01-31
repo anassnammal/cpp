@@ -30,10 +30,10 @@ public:
 	bool	operator==(Fixed const & r) const;
 	bool	operator!=(Fixed const & r) const;
 
-	Fixed	operator+(Fixed const & r);
-	Fixed	operator-(Fixed const & r);
-	Fixed	operator*(Fixed const & r);
-	Fixed	operator/(Fixed const & r);
+	Fixed	operator+(Fixed const & r) const;
+	Fixed	operator-(Fixed const & r) const;
+	Fixed	operator*(Fixed const & r) const;
+	Fixed	operator/(Fixed const & r) const;
 
 	Fixed	operator++(int);
 	Fixed	operator--(int);
