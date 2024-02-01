@@ -1,5 +1,105 @@
 #!/bin/bash
 
+cpp_class_gen()
+{
+    echo "#include \"$1.hpp\"" >> $2
+    echo "" >> $2
+    echo "$1::$1(void)" >> $2
+    echo "{" >> $2
+    echo "    // std::cout << \"Default constructor called\" << std::endl;" >> $2
+    echo "    return ;" >> $2
+    echo "}" >> $2
+    echo "" >> $2
+    echo "$1::$1($1 const & src)" >> $2
+    echo "{" >> $2
+    echo "    // std::cout << \"Copy constructor called\" << std::endl;" >> $2
+    echo "    *this = src;" >> $2
+    echo "    return ;" >> $2
+    echo "}" >> $2
+    echo "" >> $2
+    echo "$1::~$1(void)" >> $2
+    echo "{" >> $2
+    echo "    // std::cout << \"Destructor called\" << std::endl;" >> $2
+    echo "    return ;" >> $2
+    echo "}" >> $2
+    echo "" >> $2
+    echo "$1 & $1::operator=($1 const & src)" >> $2
+    echo "{" >> $2
+    echo "    if (this != &src)" >> $2
+    echo "    {" >> $2
+    echo "        // std::cout << \"Assignation operator called\" << std::endl;" >> $2
+    echo "    }" >> $2
+    echo "    return *this;" >> $2
+    echo "}" >> $2
+    echo "" >> $2
+    echo "std::ostream & operator<<(std::ostream & o, $1 const & src)" >> $2
+    echo "{" >> $2
+    echo "    // o << \"ostream operator called\";" >> $2
+    echo "    return o;" >> $2
+    echo "}" >> $2
+    echo "" >> $2
+    echo -e "\033[32m$2 created!\033[0m"
+}
+
+hpp_class_gen()
+{
+    echo "#pragma once" >> $2
+    echo "" >> $2
+    echo "#include <iostream>" >> $2
+    echo "" >> $2
+    echo "class $1" >> $2
+    echo "{" >> $2
+    echo "" >> $2
+    echo "public:" >> $2
+    echo "    $1(void);" >> $2
+    echo "    $1($1 const & src);" >> $2
+    echo "    ~$1(void);" >> $2
+    echo "" >> $2
+    echo "    $1 & operator=($1 const & src);" >> $2
+    echo "};" >> $2
+    echo "" >> $2
+    echo "std::ostream & operator<<(std::ostream & o, $1 const & src);" >> $2
+    echo "" >> $2
+    echo -e "\033[32m$2 created!\033[0m"
+}
+
+mkf_gen()
+{
+    echo "NAME = $NAME" >> Makefile
+    echo "SRCS = $MAINFILE ${CPPFILES[@]}" >> Makefile
+    echo "OBJS = \$(patsubst %.cpp, %.o, \$(SRCS))" >> Makefile
+    echo "CPPFLAGS = -std=c++98 -Wall -Wextra -Werror" >> Makefile
+    echo "CC = c++" >> Makefile
+    echo "" >> Makefile
+    echo "all: \$(NAME)" >> Makefile
+    echo "" >> Makefile
+    echo "\$(NAME): \$(OBJS)" >> Makefile
+    echo "	\$(CC) \$(CPPFLAGS) \$(OBJS) -o \$(NAME)" >> Makefile
+    echo "" >> Makefile
+    if [[ $SUBDIRS == "y" ]]; then
+        echo "$OBJDIR:" >> Makefile
+        echo "	mkdir $OBJDIR" >> Makefile
+        echo "" >> Makefile
+        echo "$OBJDIR%.o: $SRCDIR%.cpp ${HPPFILES[@]} $OBJDIR" >> Makefile
+        echo "	\$(CC) \$(CPPFLAGS) -c $< -I $INCDIR -o \$@" >> Makefile
+    else
+        echo "%.o: %.cpp ${HPPFILES[@]}" >> Makefile
+        echo "	\$(CC) \$(CPPFLAGS) -c $< -o \$@" >> Makefile
+    fi
+    echo "" >> Makefile
+    echo "clean:" >> Makefile
+    echo "	rm -f \$(OBJS)" >> Makefile
+    echo "" >> Makefile
+    echo "fclean: clean" >> Makefile
+    echo "	rm -f \$(NAME)" >> Makefile
+    echo "" >> Makefile
+    echo "re: fclean all" >> Makefile
+    echo "" >> Makefile
+    echo ".PHONY: all clean fclean re" >> Makefile
+    echo "" >> Makefile
+    echo -e "\033[32mMakefile created!\033[0m"
+}
+
 echo "__Project starter generator__"
 
 echo "Enter project name:"
@@ -79,103 +179,18 @@ fi
 for FILE in ${CPPFILES[@]}; do
     touch $FILE
     BASENAME=$(basename $FILE .cpp)
-    echo "#include \"$BASENAME.hpp\"" >> $FILE
-    echo "" >> $FILE
-    echo "$BASENAME::$BASENAME(void)" >> $FILE
-    echo "{" >> $FILE
-    echo "    // std::cout << \"Default constructor called\" << std::endl;" >> $FILE
-    echo "    return ;" >> $FILE
-    echo "}" >> $FILE
-    echo "" >> $FILE
-    echo "$BASENAME::$BASENAME($BASENAME const & src)" >> $FILE
-    echo "{" >> $FILE
-    echo "    // std::cout << \"Copy constructor called\" << std::endl;" >> $FILE
-    echo "    *this = src;" >> $FILE
-    echo "    return ;" >> $FILE
-    echo "}" >> $FILE
-    echo "" >> $FILE
-    echo "$BASENAME::~$BASENAME(void)" >> $FILE
-    echo "{" >> $FILE
-    echo "    // std::cout << \"Destructor called\" << std::endl;" >> $FILE
-    echo "    return ;" >> $FILE
-    echo "}" >> $FILE
-    echo "" >> $FILE
-    echo "$BASENAME & $BASENAME::operator=($BASENAME const & src)" >> $FILE
-    echo "{" >> $FILE
-    echo "    if (this != &src)" >> $FILE
-    echo "    {" >> $FILE
-    echo "        // std::cout << \"Assignation operator called\" << std::endl;" >> $FILE
-    echo "    }" >> $FILE
-    echo "    return *this;" >> $FILE
-    echo "}" >> $FILE
-    echo "" >> $FILE
-    echo "std::ostream & operator<<(std::ostream & o, $BASENAME const & src)" >> $FILE
-    echo "{" >> $FILE
-    echo "    // o << \"ostream operator called\";" >> $FILE
-    echo "    return o;" >> $FILE
-    echo "}" >> $FILE
-    echo "" >> $FILE
-    echo -e "\033[32m$FILE created!\033[0m"
+    cpp_class_gen $BASENAME $FILE
 done
 
 for FILE in ${HPPFILES[@]}; do
     touch $FILE
     BASENAME=$(basename $FILE .hpp)
-    echo "#pragma once" >> $FILE
-    echo "" >> $FILE
-    echo "#include <iostream>" >> $FILE
-    echo "" >> $FILE
-    echo "class $BASENAME" >> $FILE
-    echo "{" >> $FILE
-    echo "" >> $FILE
-    echo "public:" >> $FILE
-    echo "    $BASENAME(void);" >> $FILE
-    echo "    $BASENAME($BASENAME const & src);" >> $FILE
-    echo "    ~$BASENAME(void);" >> $FILE
-    echo "" >> $FILE
-    echo "    $BASENAME & operator=($BASENAME const & src);" >> $FILE
-    echo "};" >> $FILE
-    echo "" >> $FILE
-    echo "std::ostream & operator<<(std::ostream & o, $BASENAME const & src);" >> $FILE
-    echo "" >> $FILE
-    echo -e "\033[32m$FILE created!\033[0m"
+    hpp_class_gen $BASENAME $FILE
 done
 
 if [[ $MAKEFILE == 1 ]]; then
     touch Makefile
-    echo "NAME = $NAME" >> Makefile
-    echo "SRCS = $MAINFILE ${CPPFILES[@]}" >> Makefile
-    echo "OBJS = \$(patsubst %.cpp, %.o, \$(SRCS))" >> Makefile
-    echo "CPPFLAGS = -std=c++98 -Wall -Wextra -Werror" >> Makefile
-    echo "CC = c++" >> Makefile
-    echo "" >> Makefile
-    echo "all: \$(NAME)" >> Makefile
-    echo "" >> Makefile
-    echo "\$(NAME): \$(OBJS)" >> Makefile
-    echo "	\$(CC) \$(CPPFLAGS) \$(OBJS) -o \$(NAME)" >> Makefile
-    echo "" >> Makefile
-    if [[ $SUBDIRS == "y" ]]; then
-        echo "$OBJDIR:" >> Makefile
-        echo "	mkdir $OBJDIR" >> Makefile
-        echo "" >> Makefile
-        echo "$OBJDIR%.o: $SRCDIR%.cpp ${HPPFILES[@]} $OBJDIR" >> Makefile
-        echo "	\$(CC) \$(CPPFLAGS) -c $< -I $INCDIR -o \$@" >> Makefile
-    else
-        echo "%.o: %.cpp ${HPPFILES[@]}" >> Makefile
-        echo "	\$(CC) \$(CPPFLAGS) -c $< -o \$@" >> Makefile
-    fi
-    echo "" >> Makefile
-    echo "clean:" >> Makefile
-    echo "	rm -f \$(OBJS)" >> Makefile
-    echo "" >> Makefile
-    echo "fclean: clean" >> Makefile
-    echo "	rm -f \$(NAME)" >> Makefile
-    echo "" >> Makefile
-    echo "re: fclean all" >> Makefile
-    echo "" >> Makefile
-    echo ".PHONY: all clean fclean re" >> Makefile
-    echo "" >> Makefile
-    echo -e "\033[32mMakefile created!\033[0m"
+    mkf_gen
 fi
 
 echo "Done!"

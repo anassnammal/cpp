@@ -1,4 +1,4 @@
-NAME=ClapTrap
+NAME= ClapTrap
 SRC=main.cpp ClapTrap.cpp
 OBJ=$(SRC:.cpp=.o)
 FLAGS=-std=c++98 -Wall -Wextra -Werror
