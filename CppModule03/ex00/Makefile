@@ -1,12 +1,13 @@
-NAME= ClapTrap
+NAME=ClapTrap
 SRC=main.cpp ClapTrap.cpp
 OBJ=$(SRC:.cpp=.o)
+INC=ClapTrap.hpp
 FLAGS=-std=c++98 -Wall -Wextra -Werror
 COMPILER=c++
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(INC)
 	$(COMPILER) $(FLAGS) $(OBJ) -o $(NAME)
 
 %.o: %.cpp
