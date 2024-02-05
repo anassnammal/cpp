@@ -23,7 +23,7 @@ Cat & Cat::operator=(Cat const & src)
 {
     if (this != &src)
     {
-        std::cout << "Cat: Copy assignation operator called" << std::endl;
+        std::cout << "Cat: Copy assignment operator called" << std::endl;
         this->type = src.type;
     }
     return *this;

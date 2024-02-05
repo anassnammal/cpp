@@ -33,7 +33,7 @@ DiamondTrap & DiamondTrap::operator=(DiamondTrap const & src)
 {
     if (this != &src)
     {
-        // std::cout << "DiamondTrap assignation operator called" << std::endl;
+        // std::cout << "DiamondTrap assignment operator called" << std::endl;
     }
     return *this;
 }

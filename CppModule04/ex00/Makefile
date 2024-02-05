@@ -1,7 +1,7 @@
 NAME = Poly
 SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
-INCS = Animal.cpp Dog.cpp Cat.cpp
+INCS = Animal.hpp Dog.hpp Cat.hpp Brain.hpp
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
 CC = c++
 
@@ -10,7 +10,7 @@ all: $(NAME)
 $(NAME): $(OBJS) $(INCS)
 	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.cpp Animal.hpp Dog.hpp Cat.hpp
+%.o: %.cpp
 	$(CC) $(CPPFLAGS) -c $< -o $@
 
 clean:

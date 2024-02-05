@@ -5,9 +5,9 @@
 class Animal
 {
 protected:
-    Animal(void);
     std::string type;
 public:
+    Animal(void);
     Animal(std::string type);
     Animal(Animal const & src);
     virtual ~Animal(void);

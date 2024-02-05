@@ -1,7 +1,7 @@
-NAME = Poly2
-SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
+NAME = Abstract
+SRCS = main.cpp AAnimal.cpp Dog.cpp Cat.cpp Brain.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
-INCS = Animal.hpp Dog.hpp Cat.hpp Brain.hpp
+INCS = AAnimal.hpp Dog.hpp Cat.hpp Brain.hpp
 CPPFLAGS = -g -std=c++98 -Wall -Wextra -Werror
 CC = c++
 

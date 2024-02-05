@@ -23,7 +23,7 @@ Dog & Dog::operator=(Dog const & src)
 {
     if (this != &src)
     {
-        std::cout << "Dog: Copy assignation operator called" << std::endl;
+        std::cout << "Dog: Copy assignment operator called" << std::endl;
         this->type = src.type;
     }
     return *this;

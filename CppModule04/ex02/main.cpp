@@ -5,7 +5,7 @@
 
 int main(void)
 {
-    Animal *animals[SIZE];
+    AAnimal *animals[SIZE];
 
     for (int i = 0; i < SIZE; i++)
     {
