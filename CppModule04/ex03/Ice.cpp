@@ -1,36 +1,31 @@
 #include "Ice.hpp"
 
-Ice::Ice(void)
+Ice::Ice(void) : AMateria("ice")
 {
-    // std::cout << "Ice: Default constructor called" << std::endl;
+    std::cout << "Ice: Default constructor called" << std::endl;
     return ;
 }
 
-Ice::Ice(Ice const & src)
+Ice::Ice(Ice const & src) : AMateria(src)
 {
-    // std::cout << "Ice: Copy constructor called" << std::endl;
-    *this = src;
+    std::cout << "Ice: Copy constructor called" << std::endl;
     return ;
 }
 
 Ice::~Ice(void)
 {
-    // std::cout << "Ice: Destructor called" << std::endl;
+    std::cout << "Ice: Destructor called" << std::endl;
     return ;
 }
 
-Ice & Ice::operator=(Ice const & src)
+AMateria *Ice::clone() const
 {
-    if (this != &src)
-    {
-        // std::cout << "Ice: Copy assignment operator called" << std::endl;
-    }
-    return *this;
+    return (new Ice(*this));
 }
 
-// std::ostream & operator<<(std::ostream & o, Ice const & src)
-// {
-//     o << "ostream operator called";
-//     return o;
-// }
+void Ice::use(ICharacter& target)
+{
+    std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
+    return ;
+}
 

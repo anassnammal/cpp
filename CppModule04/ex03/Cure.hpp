@@ -5,16 +5,14 @@
 
 class Cure : public AMateria
 {
-
+    Cure & operator=(Cure const & src);
 public:
     Cure(void);
     Cure(Cure const & src);
     ~Cure(void);
 
-    Cure & operator=(Cure const & src);
-
 	AMateria *clone() const;
+    void use(ICharacter& target);
 };
 
-// std::ostream & operator<<(std::ostream & o, Cure const & src);
 

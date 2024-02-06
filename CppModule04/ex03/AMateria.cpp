@@ -1,36 +1,31 @@
 #include "AMateria.hpp"
 
-AMateria::AMateria(void)
+AMateria::AMateria(std::string const &type) : type(type)
 {
-    // std::cout << "AMateria: Default constructor called" << std::endl;
+    std::cout << "AMateria: Parametrized constructor called" << std::endl;
     return ;
 }
 
-AMateria::AMateria(AMateria const & src)
+AMateria::AMateria(AMateria const & src) : type(src.type)
 {
-    // std::cout << "AMateria: Copy constructor called" << std::endl;
-    *this = src;
+    std::cout << "AMateria: Copy constructor called" << std::endl;
     return ;
 }
 
 AMateria::~AMateria(void)
 {
-    // std::cout << "AMateria: Destructor called" << std::endl;
+    std::cout << "AMateria: Destructor called" << std::endl;
     return ;
 }
 
-AMateria & AMateria::operator=(AMateria const & src)
+std::string const & AMateria::getType(void) const
 {
-    if (this != &src)
-    {
-        // std::cout << "AMateria: Copy assignment operator called" << std::endl;
-    }
-    return *this;
+    return (this->type);
 }
 
-// std::ostream & operator<<(std::ostream & o, AMateria const & src)
-// {
-//     o << "ostream operator called";
-//     return o;
-// }
+void AMateria::use(ICharacter& target)
+{
+    std::cout << "* uses a materia on " << target.getName() << " *" << std::endl;
+    return ;
+}
 
