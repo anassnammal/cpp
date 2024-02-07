@@ -8,6 +8,10 @@ int main()
     IMateriaSource* src = new MateriaSource();
     src->learnMateria(new Ice());
     src->learnMateria(new Cure());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
+    src->learnMateria(new Ice());
+    src->learnMateria(new Cure());
     ICharacter* me = new Character("me");
     AMateria* tmp;
     tmp = src->createMateria("ice");
@@ -24,24 +28,3 @@ int main()
 
     return 0;
 }
-/*
-MateriaSource: Default constructor called
-
-AMateria: Parametrized constructor called
-Ice: Default constructor called
-
-AMateria: Parametrized constructor called
-Cure: Default constructor called
-
-Character: Parametrized constructor called
-
-Character: Parametrized constructor called
-
-Character: Destructor called
-Character: Destructor called
-MateriaSource: Destructor called
-Ice: Destructor called
-AMateria: Destructor called
-Cure: Destructor called
-AMateria: Destructor called
-*/
