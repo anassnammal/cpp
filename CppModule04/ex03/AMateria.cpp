@@ -20,7 +20,7 @@ AMateria::~AMateria(void)
 
 std::string const & AMateria::getType(void) const
 {
-    return (this->type);
+    return (type);
 }
 
 void AMateria::use(ICharacter& target)
@@ -28,4 +28,3 @@ void AMateria::use(ICharacter& target)
     std::cout << "* uses a materia on " << target.getName() << " *" << std::endl;
     return ;
 }
-

@@ -1,8 +1,8 @@
 NAME = Interface
-SRCS = main.cpp AMateria.cpp Ice.cpp Cure.cpp MateriaSource.cpp Character.cpp
+SRCS = MateriaSource.cpp AMateria.cpp Ice.cpp Cure.cpp Character.cpp main.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 INCS = AMateria.hpp Ice.hpp Cure.hpp MateriaSource.hpp Character.hpp ICharacter.hpp IMateriaSource.hpp
-CPPFLAGS = -g -std=c++98 -Wall -Wextra -Werror
+CPPFLAGS = -g -std=c++98 -Wall -Wextra -Werror -fsanitize=address
 CC = c++
 
 all: $(NAME)

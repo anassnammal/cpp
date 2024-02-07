@@ -3,14 +3,12 @@
 MateriaSource::MateriaSource(void) : count(0)
 {
     std::cout << "MateriaSource: Default constructor called" << std::endl;
-    return ;
 }
 
 MateriaSource::MateriaSource(MateriaSource const & src)
 {
     std::cout << "MateriaSource: Copy constructor called" << std::endl;
     *this = src;
-    return ;
 }
 
 MateriaSource::~MateriaSource(void)
@@ -18,7 +16,6 @@ MateriaSource::~MateriaSource(void)
     std::cout << "MateriaSource: Destructor called" << std::endl;
     for (int i = 0; i < this->count; i++)
         delete this->materia[i];
-    return ;
 }
 
 MateriaSource & MateriaSource::operator=(MateriaSource const & src)
@@ -42,7 +39,8 @@ void MateriaSource::learnMateria(AMateria* m)
         this->materia[this->count] = m;
         this->count++;
     }
-    return ;
+	else
+		delete m;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type)
