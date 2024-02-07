@@ -1,7 +1,7 @@
 NAME = Poly
-SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp
+SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
-INCS = Animal.hpp Dog.hpp Cat.hpp Brain.hpp
+INCS = Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
 CC = c++
 
