@@ -6,7 +6,7 @@ Character::Character(std::string const & name) : name(name), count(0)
     return ;
 }
 
-Character::Character(Character const & src)
+Character::Character(Character const & src) : count(0)
 {
     std::cout << "Character: Copy constructor called" << std::endl;
     *this = src;
@@ -28,7 +28,7 @@ Character & Character::operator=(Character const & src)
         std::cout << "Character: Copy assignment operator called" << std::endl;
         this->name = src.name;
         for (int i = 0; i < this->count; i++)
-            delete this->materia[i];
+        	delete this->materia[i];
         this->count = src.count;
         for (int i = 0; i < this->count; i++)
             this->materia[i] = src.materia[i]->clone();

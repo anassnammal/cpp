@@ -5,7 +5,7 @@ MateriaSource::MateriaSource(void) : count(0)
     std::cout << "MateriaSource: Default constructor called" << std::endl;
 }
 
-MateriaSource::MateriaSource(MateriaSource const & src)
+MateriaSource::MateriaSource(MateriaSource const & src) : count(0)
 {
     std::cout << "MateriaSource: Copy constructor called" << std::endl;
     *this = src;

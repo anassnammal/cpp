@@ -3,11 +3,10 @@
 
 #define SIZE 9
 
-// void check_leaks(void){system("leaks Abstract"); }
+
 
 int main(void)
 {
-	// atexit(check_leaks);
     AAnimal *animals[SIZE];
 
     for (int i = 0; i < SIZE; i++)
