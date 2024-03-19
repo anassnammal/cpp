@@ -1,8 +1,12 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(std::string &name, int grade) : name(name), grade(grade)
+Bureaucrat::Bureaucrat(std::string const &name, int grade) : name(name)
 {
-    
+    if (grade < 1)
+        throw Bureaucrat::GradeTooHighException();
+    else if (grade > 150)
+        throw Bureaucrat::GradeTooLowException();
+    this->grade = grade;
     return ;
 }
 
@@ -19,13 +23,40 @@ Bureaucrat::~Bureaucrat(void)
     return ;
 }
 
-Bureaucrat & Bureaucrat::operator=(Bureaucrat const & src)
+std::string const	&Bureaucrat::getName() const
 {
-    // if (this != &src)
-    // {
-    //     // std::cout << "Bureaucrat: Copy assignment operator called" << std::endl;
-    // }
-    return *this;
+    return name;
+}
+
+int					Bureaucrat::getGrade() const
+{
+    return grade;
+}
+
+void				Bureaucrat::gradeUp()
+{
+    if (grade <= 1)
+        throw Bureaucrat::GradeTooHighException();
+    grade--;
+    return ;
+}
+
+void				Bureaucrat::gradeDown()
+{
+    if (grade >= 150)
+        throw Bureaucrat::GradeTooLowException();
+    grade++;
+    return ;
+}
+
+const char *Bureaucrat::GradeTooHighException::what() const throw()
+{
+    return "Grade too high";
+}
+
+const char *Bureaucrat::GradeTooLowException::what() const throw()
+{
+    return "Grade too low";
 }
 
 std::ostream & operator<<(std::ostream & o, Bureaucrat const & src)
