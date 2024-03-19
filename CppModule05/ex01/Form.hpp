@@ -3,6 +3,8 @@
 #include <iostream>
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class Form
 {
 	std::string const	&name;
@@ -21,8 +23,8 @@ public:
 
 	std::string const	&getName() const;
 	bool				getSignState() const;
-	int const			getSignGrade() const;
-	int const			getExecGrade() const;
+	int					getSignGrade() const;
+	int					getExecGrade() const;
 
 	void				beSigned(Bureaucrat const &b);
 
@@ -34,7 +36,11 @@ public:
 	{
 		virtual const char *what() const throw();
 	};
+	class FormAlreadySignedException : public std::exception
+	{
+		virtual const char *what() const throw();
+	};
 };
 
-// std::ostream & operator<<(std::ostream & o, Form const & src);
+std::ostream & operator<<(std::ostream & o, Form const & src);
 

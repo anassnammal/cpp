@@ -35,18 +35,20 @@ bool				Form::getSignState() const
 	return (isSigned);
 }
 
-int const			Form::getSignGrade() const
+int					Form::getSignGrade() const
 {
 	return (signGrade);
 }
 
-int const			Form::getExecGrade() const
+int					Form::getExecGrade() const
 {
 	return (execGrade);
 }
 
 void				Form::beSigned(Bureaucrat const &b)
 {
+	if (isSigned)
+		throw Form::FormAlreadySignedException();
 	if (signGrade < b.getGrade())
 		throw Form::GradeTooLowException();
 	isSigned = true;
@@ -62,16 +64,22 @@ const char *Form::GradeTooHighException::what() const throw()
 	return ("Grade too high");
 }
 
+const char *Form::FormAlreadySignedException::what() const throw()
+{
+	return ("Form already signed");
+}
+
 std::ostream & operator<<(std::ostream & o, Form const & src)
 {
 	std::string	tmp;
 	if (src.getSignState())
-		tmp = " signed, ";
+		tmp = "signed";
 	else
-		tmp = " not signed yet, ";
-    o << "Form " << src.getName() << tmp;
-	o << "its grade required to sign it is : " << src.getSignGrade();
-	o << "its grade required to execute it is : " << src.getExecGrade();
+		tmp = "not signed yet";
+    o << "Form name: " << src.getName() << std::endl;
+	o << "Form state: " << tmp << std::endl;
+	o << "Sign grade: " << src.getSignGrade() << std::endl;
+	o << "Execution grade: " << src.getExecGrade();
     return o;
 }
 
