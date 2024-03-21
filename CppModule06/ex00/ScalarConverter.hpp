@@ -1,13 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
 #include <string>
-
-#define NPRINT  "not displayable"
-#define IMPOSS  "impossible"
-#define MINF    "-inf"
-#define PINF    "+inf"
-#define NAN     "nan"
+#include <cstdlib>
+#include <cctype>
 
 class ScalarConverter
 {
@@ -19,6 +16,13 @@ class ScalarConverter
 
 public:
     static  void    convert(std::string const s);
+
+    class OverFlowedInput : std::exception
+    {
+        public:
+            virtual const char *what() const throw();
+
+    };
 };
 
 // std::ostream & operator<<(std::ostream & o, ScalarConverter const & src);
