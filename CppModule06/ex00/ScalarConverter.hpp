@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 #define NPRINT  "not displayable"
 #define IMPOSS  "impossible"
