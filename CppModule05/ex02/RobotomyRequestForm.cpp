@@ -24,6 +24,7 @@ void            RobotomyRequestForm::execute(Bureaucrat const & executor) const
     static bool execFormCount;
 
     checkRequirement(executor);
+    std::cout << "Drl..drl...drrrrrrrrrrrrrrrr!" << std::endl;
     if (!execFormCount)
         std::cout << this->getName() << " has been robotomized successfull" << std::endl;
     else
