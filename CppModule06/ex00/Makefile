@@ -1,4 +1,4 @@
-NAME = ScalarConverter
+NAME = converter
 SRCS = main.cpp ScalarConverter.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 INCS = ScalarConverter.hpp
