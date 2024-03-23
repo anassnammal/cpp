@@ -1,7 +1,7 @@
-NAME = converter
-SRCS = main.cpp ScalarConverter.cpp
+NAME = identify
+SRCS = main.cpp Base.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
-INCS = ScalarConverter.hpp
+INCS = Base.hpp A.hpp B.hpp C.hpp
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
 CC = c++
 

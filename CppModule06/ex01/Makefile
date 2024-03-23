@@ -1,7 +1,7 @@
-NAME = converter
-SRCS = main.cpp ScalarConverter.cpp
+NAME = serialize
+SRCS = main.cpp Serializer.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
-INCS = ScalarConverter.hpp
+INCS = Serializer.hpp Data.hpp
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
 CC = c++
 

@@ -3,11 +3,18 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <cstdlib>
-#include <cctype>
+#include <sstream>
+#include <limits>
 
 class ScalarConverter
 {
+    enum type {
+        T_CHAR,
+        T_VALID,
+        T_SPECIAL,
+        T_INVALID
+    };
+
     ScalarConverter(void);
     ScalarConverter(ScalarConverter const & src);
     ~ScalarConverter(void);
@@ -15,14 +22,10 @@ class ScalarConverter
     ScalarConverter & operator=(ScalarConverter const & src);
 
 public:
-    static  void    convert(std::string const s);
 
-    class OverFlowedInput : std::exception
-    {
-        public:
-            virtual const char *what() const throw();
+    static  type    identifyInput(std::string& input);
+    static  void    convert(std::string s);
 
-    };
 };
 
 // std::ostream & operator<<(std::ostream & o, ScalarConverter const & src);
