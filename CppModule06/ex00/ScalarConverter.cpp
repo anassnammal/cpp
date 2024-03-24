@@ -57,7 +57,7 @@ void ScalarConverter::convert(std::string input)
             floatConversion.push_back('f');
         doubleConversion = ss.str();
         if (doubleConversion == "nanf" || doubleConversion == "+inff" || doubleConversion == "-inff" || doubleConversion == "inff")
-            doubleConversion.pop_back();
+            doubleConversion.erase(doubleConversion.length() - 1);
     }
     std::cout << "char      : " << charConversion << std::endl;
     std::cout << "int       : " << intConversion << std::endl;
