@@ -3,14 +3,14 @@
 
 int main(void)
 {
-    std::cout << std::fixed;
-    std::cout << "char      : " << std::numeric_limits<char>::max() << std::endl;
-    std::cout << "char      : " << std::numeric_limits<char>::min() << std::endl;
-    std::cout << "int       : " << std::numeric_limits<int>::max() << std::endl;
-    std::cout << "int       : " << std::numeric_limits<int>::min() << std::endl;
-    std::cout << "float     : " << std::numeric_limits<float>::max() << std::endl;
-    std::cout << "float     : " << std::numeric_limits<float>::min() << std::endl;
-    std::cout << "double    : " << std::numeric_limits<double>::max() << std::endl;
-    std::cout << "double    : " << std::numeric_limits<double>::min() << std::endl;
+    int *a = new int[5];
+    for (size_t i = 0; i < 5; i++)
+    {
+        a[i] = i;
+        std::cout << a[i] << std::endl;
+    }
+    std::cout << a[6] << std::endl;
+    
+    delete[] a;
     return 0;
 }
