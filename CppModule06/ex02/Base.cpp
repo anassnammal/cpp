@@ -22,7 +22,7 @@ Base    *Base::generate(void)
     return (nullptr);
 }
 
-void Base::identify(Base* p)
+void Base::identify(Base* p)  
 {
     if (dynamic_cast<A*>(p))
         std::cout << "the type of the instance is : class A" << std::endl;
