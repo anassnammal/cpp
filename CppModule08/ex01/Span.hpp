@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iterator>
 #include <vector>
+#include <algorithm>
+#include <inttypes.h>
 
 typedef std::vector<int> intVec_t;
 
