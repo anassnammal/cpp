@@ -1,7 +1,7 @@
-NAME = span
-SRCS = main.cpp Span.cpp
+NAME = stack
+SRCS = main.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
-INCS = Span.hpp
+INCS = MutantStack.hpp
 CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
 CC = c++
 

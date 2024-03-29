@@ -6,11 +6,10 @@ Span::Span(uint32_t n) : max(n)
     return ;
 }
 
-Span::Span(Span const & src) : max(src.getMax())
+Span::Span(Span const & src) : max(src.max)
 {
     // std::cout << "Span: Copy constructor called" << std::endl;
-    intVec_t    tmp = src.getContent();
-    content.insert(tmp.begin(), tmp.end());
+    addNumber(src.begin(), src.end());
     return ;
 }
 
@@ -20,47 +19,31 @@ Span::~Span(void)
     return ;
 }
 
-intVec_t const  &Span::getContent(void) const
+intVec_t::iterator  Span::begin()
 {
-    return (content);
+    return (content.begin());
 }
 
-uint32_t        Span::getMax(void) const
+intVec_t::const_iterator  Span::begin() const
 {
-    return (max);
+    return (content.begin());
+}
+
+intVec_t::iterator  Span::end()
+{
+    return (content.end());
+}
+
+intVec_t::const_iterator  Span::end() const
+{
+    return (content.end());
 }
 
 void            Span::addNumber(int n)
 {
-    try
-    {
-        if (content.size() >= max)
-            throw std::out_of_range("OUT OF RANGE! span is full");
-        content.push_back(n);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-}
-
-template<typename it>
-void            Span::addNumber(it b, it e)
-{
-    for (it i = b; i < e; i++)
-    {
-        try
-        {
-            if (content.size() >= max)
-                throw std::out_of_range("OUT OF RANGE! span is full");
-            content.push_back(*i);
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << std::endl;
-            break ;
-        }
-    }
+    if (content.size() >= max)
+        throw std::out_of_range("Error! Span is full");
+    content.push_back(n);
 }
 
 int     Span::shortestSpan(void) const
@@ -79,22 +62,33 @@ int     Span::shortestSpan(void) const
 
 int     Span::longestSpan(void) const
 {
-    int min = *std::min_element(content.begin(), content.end());
-    int max = *std::max_element(content.begin(), content.end());
+    int min = *std::min_element(begin(), end());
+    int max = *std::max_element(begin(), end());
     return (max - min);
+}
+
+Span & Span::operator=(Span const & src)
+{
+    // std::cout << "Span: Copy assignment called" << std::endl;
+    if (this != &src)
+    {
+        addNumber(src.begin(), src.end());
+    }
+    return (*this);
 }
 
 int   &Span::operator[](unsigned int i)
 {
-    if (i >= content.size())
-        throw std::out_of_range("Span index out of range");
+    if (i >= max)
+        throw std::out_of_range("Error! Span index out of range");
+    else if (i == content.size())
+        content.push_back(0);
     return content[i];
 }
 
 std::ostream & operator<<(std::ostream & o, Span const & src)
 {
-    intVec_t const  &tmp = src.getContent();
-    std::copy(tmp.begin(), tmp.end(), std::ostream_iterator<int>(o, ", "));
+    std::copy(src.begin(), src.end(), std::ostream_iterator<int>(o, ", "));
     return o;
 }
 
