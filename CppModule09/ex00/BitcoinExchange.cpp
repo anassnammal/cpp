@@ -88,7 +88,7 @@ mapDb const & BitcoinExchange::getDb(void) const
     return db;
 }
 
-void    BitcoinExchange::calculate(pair const & pair)
+void    BitcoinExchange::calculate(pair const & pair) const
 {
     // std::cout << "BitcoinExchange: calculate called" << std::endl;
     long    date = pair.first;
@@ -117,8 +117,8 @@ pair    BitcoinExchange::parseLine(std::string const & line, char delim)
     if (!(ss >> result.second) || ss.rdbuf()->in_avail() != 0)
         throw FileError("Invalid amount format");
     if (result.second < 0)
-        throw FileError("no negative amount allowed");
-    if (delim == '|' && result.second > 10000)
+        throw FileError("negative amount not allowed");
+    if (delim == '|' && result.second > 1000)
         throw FileError("amount too large");
     return result;
 }
