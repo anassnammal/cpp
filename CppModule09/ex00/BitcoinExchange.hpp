@@ -14,6 +14,7 @@ class BitcoinExchange
     mapDb       db;
 
     BitcoinExchange(void);
+    void    calculate(pair const & pair) const;
 
 public:
     BitcoinExchange(const char *filename);
@@ -24,7 +25,6 @@ public:
 
     void                setDb(void);
     mapDb const       & getDb(void) const;
-    void                calculate(pair const & pair);
 
     static pair         parseLine(std::string const & line, char delim);
     static std::string  trim(std::string const & str);
