@@ -78,7 +78,7 @@ void    BitcoinExchange::setDb(void)
     }
     file.close();
     if (db.empty())
-        throw FileError("db.csv is empty");
+        throw FileError("data.csv is empty");
     return ;
 }
 
