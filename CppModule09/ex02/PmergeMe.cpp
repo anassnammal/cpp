@@ -80,9 +80,25 @@ void    PmergeMe::load_l(int ac, char **av)
         seq_l.push_back(str_to_uint(av[i]));
 }
 
-void    PmergeMe::sort_v(void)
+void PmergeMe::sort_v(void)
 {
-    
+    unsigned int n = seq_v.size();
+    unsigned int half = n / 2;
+    pair_vector pairs(half);
+    uint_vector jacob_sthal_seq;
+
+    for (unsigned int i = 0; i < half; i++)
+    {
+        pairs[i].first = seq_v[i];
+        pairs[i].second = seq_v[i + 1];
+        if (pairs[i].first < pairs[i].second)
+            std::swap(pairs[i].first, pairs[i].second);
+    }
+    std::sort(pairs.begin(), pairs.end());
+    for (unsigned int i = 0; i < half; i++)
+        seq_v_sorted.push_back(pairs[i].first);
+    gen_jacobsthal(jacob_sthal_seq, n);
+
 }
 
 void    PmergeMe::sort_l(void)
@@ -123,6 +139,30 @@ unsigned int     PmergeMe::str_to_uint(char *str)
     if (!(ss >> n))
         throw std::invalid_argument("Invalid argument");
     return n;
+}
+
+void    PmergeMe::gen_jacobsthal(uint_vector & seq, unsigned int n)
+{
+    if (n == 0)
+        return ;
+    seq.push_back(0);
+    if (n == 1)
+        return ;
+    seq.push_back(1);
+    for (unsigned int i = 2; i < n; i++)
+        seq.push_back(seq[i - 1] + 2 * seq[i - 2]);
+}
+
+void    PmergeMe::gen_jacobsthal(uint_list & seq, unsigned int n)
+{
+    if (n == 0)
+        return ;
+    seq.push_back(0);
+    if (n == 1)
+        return ;
+    seq.push_back(1);
+    for (unsigned int i = 2; i < n; i++)
+        seq.push_back(seq.back() + 2 * seq.rbegin()[1]);
 }
 
 std::ostream & operator<<(std::ostream & o, PmergeMe const & src)

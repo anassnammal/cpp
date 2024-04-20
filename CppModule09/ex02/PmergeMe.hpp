@@ -48,6 +48,8 @@ public:
     void    launchMergeInsertionSort(int ac, char **av);
 
     static unsigned int     str_to_uint(char *str);
+    static void             gen_jacobsthal(uint_vector & seq, unsigned int n);
+    static void             gen_jacobsthal(uint_list & seq, unsigned int n);
 };
 
 std::ostream & operator<<(std::ostream & o, PmergeMe const & src);
