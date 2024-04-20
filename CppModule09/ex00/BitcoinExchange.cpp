@@ -11,7 +11,7 @@ BitcoinExchange::BitcoinExchange(const char *inputFile)
             throw FileError(std::string(inputFile) + " could not be opened");
         std::string line;
         if (!std::getline(file, line) || line != "date | value")
-            throw FileError("header is missing or invalid");
+            throw FileError("header is missing or invalid file format");
         while (file.good() && !file.eof())
         {
             std::getline(file, line);
@@ -30,7 +30,7 @@ BitcoinExchange::BitcoinExchange(const char *inputFile)
     }
     catch (std::exception & e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << std::endl;
     }
     return ;
 }
