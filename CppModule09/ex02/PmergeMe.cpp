@@ -98,12 +98,27 @@ void PmergeMe::sort_v(void)
     for (unsigned int i = 0; i < half; i++)
         seq_v_sorted.push_back(pairs[i].first);
     gen_jacobsthal(jacob_sthal_seq, n);
-
+    seq_v_sorted.insert(seq_v_sorted.begin(), pairs[0].second);
+    for (size_t i = 1; i < half; i++)
+    {
+        for (size_t j = jacob_sthal_seq[i]; j > jacob_sthal_seq[i - 1]; j--)
+        {
+            unsigned int element = pairs[j].second;
+            uint_vector::const_iterator pos = std::lower_bound(seq_v_sorted.begin(), seq_v_sorted.end(), element);
+            seq_v_sorted.insert(pos, element);
+        }
+    }
+    if (n % 2 == 1)
+    {
+        unsigned int n1 = seq_v.back();
+        uint_vector::const_iterator pos = std::lower_bound(seq_v_sorted.begin(), seq_v_sorted.end(), n1);
+        seq_v_sorted.insert(pos, n1);
+    }
 }
 
 void    PmergeMe::sort_l(void)
 {
-    
+
 }
 
 void    PmergeMe::launchMergeInsertionSort(int ac, char **av)
@@ -149,8 +164,10 @@ void    PmergeMe::gen_jacobsthal(uint_vector & seq, unsigned int n)
     if (n == 1)
         return ;
     seq.push_back(1);
-    for (unsigned int i = 2; i < n; i++)
+    for (unsigned int i = 2; seq[i] <= n; i++)
+    {
         seq.push_back(seq[i - 1] + 2 * seq[i - 2]);
+    }
 }
 
 void    PmergeMe::gen_jacobsthal(uint_list & seq, unsigned int n)

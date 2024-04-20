@@ -1,4 +1,4 @@
-// #include "PmergeMe.hpp"
+#include "PmergeMe.hpp"
 #include <iostream>
 
 int main(int ac, char **av)
@@ -9,6 +9,9 @@ int main(int ac, char **av)
         std::cerr << "Usage: " << av[0] << "<positive integer>{1, 2, 3, ...}" << std::endl;
         return 1;
     }
+    PmergeMe    seq;
+    seq.launchMergeInsertionSort(ac, av);
+    std::cout << seq;
     return 0;
 }
 
