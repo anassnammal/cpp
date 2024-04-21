@@ -1,6 +1,6 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe(void) : elapsed_v(0), elapsed_l(0)
+PmergeMe::PmergeMe(void) : elapsed_v(0), elapsed_d(0)
 {
     // std::cout << "PmergeMe: Default constructor called" << std::endl;
     return ;
@@ -16,8 +16,8 @@ PmergeMe::PmergeMe(PmergeMe const & src)
 PmergeMe::~PmergeMe(void)
 {
     seq_v.clear();
-    seq_l.clear();
-    seq_l_sorted.clear();
+    seq_d.clear();
+    seq_d_sorted.clear();
     seq_v_sorted.clear();
     // std::cout << "PmergeMe: Destructor called" << std::endl;
     return ;
@@ -29,11 +29,11 @@ PmergeMe & PmergeMe::operator=(PmergeMe const & src)
     {
         // std::cout << "PmergeMe: Copy assignment operator called" << std::endl;
         seq_v = src.getSeqV();
-        seq_l = src.getSeqL();
-        seq_l_sorted = src.getSeqLSorted();
+        seq_d = src.getSeqL();
+        seq_d_sorted = src.getSeqLSorted();
         seq_v_sorted = src.getSeqVSorted();
         elapsed_v = src.getElapsedV();
-        elapsed_l = src.getElapsedL();
+        elapsed_d = src.getElapsedL();
     }
     return *this;
 }
@@ -43,9 +43,9 @@ uint_vector const   & PmergeMe::getSeqV(void) const
     return seq_v;
 }
 
-uint_list const     & PmergeMe::getSeqL(void) const
+uint_deque const     & PmergeMe::getSeqL(void) const
 {
-    return seq_l;
+    return seq_d;
 }
 
 uint_vector const   & PmergeMe::getSeqVSorted(void) const
@@ -53,9 +53,9 @@ uint_vector const   & PmergeMe::getSeqVSorted(void) const
     return seq_v_sorted;
 }
 
-uint_list const     & PmergeMe::getSeqLSorted(void) const
+uint_deque const     & PmergeMe::getSeqLSorted(void) const
 {
-    return seq_l_sorted;
+    return seq_d_sorted;
 }
 
 std::time_t         PmergeMe::getElapsedV(void) const
@@ -65,7 +65,7 @@ std::time_t         PmergeMe::getElapsedV(void) const
 
 std::time_t         PmergeMe::getElapsedL(void) const
 {
-    return elapsed_l;
+    return elapsed_d;
 }
 
 void    PmergeMe::load_v(int ac, char **av)
@@ -74,10 +74,10 @@ void    PmergeMe::load_v(int ac, char **av)
         seq_v.push_back(str_to_uint(av[i]));
 }
 
-void    PmergeMe::load_l(int ac, char **av)
+void    PmergeMe::load_d(int ac, char **av)
 {
     for (int i = 1; i < ac; i++)
-        seq_l.push_back(str_to_uint(av[i]));
+        seq_d.push_back(str_to_uint(av[i]));
 }
 
 void PmergeMe::sort_v(void)
@@ -116,7 +116,7 @@ void PmergeMe::sort_v(void)
     }
 }
 
-void    PmergeMe::sort_l(void)
+void    PmergeMe::sort_d(void)
 {
 
 }
@@ -135,10 +135,10 @@ void    PmergeMe::launchMergeInsertionSort(int ac, char **av)
         elapsed_v = end - start;
 
         start = std::time(NULL);
-        load_l(ac, av);
-        sort_l();
+        load_d(ac, av);
+        sort_d();
         end = std::time(NULL);
-        elapsed_l = end - start;
+        elapsed_d = end - start;
     }
     catch (std::exception & e)
     {
@@ -164,13 +164,18 @@ void    PmergeMe::gen_jacobsthal(uint_vector & seq, unsigned int n)
     if (n == 1)
         return ;
     seq.push_back(1);
-    for (unsigned int i = 2; seq[i] <= n; i++)
+    bool finiched = false;
+    for (unsigned int i = 2; !finiched; i++)
     {
-        seq.push_back(seq[i - 1] + 2 * seq[i - 2]);
+        unsigned int curr = seq[i - 1] + 2 * seq[i - 2];
+        if (curr > n)
+            finiched = true;
+        else
+            seq.push_back(curr);
     }
 }
 
-void    PmergeMe::gen_jacobsthal(uint_list & seq, unsigned int n)
+void    PmergeMe::gen_jacobsthal(uint_deque & seq, unsigned int n)
 {
     if (n == 0)
         return ;
@@ -187,7 +192,7 @@ std::ostream & operator<<(std::ostream & o, PmergeMe const & src)
     uint_vector const   & seq_v = src.getSeqV();
     uint_vector const   & seq_v_sorted = src.getSeqVSorted();
     std::time_t         elapsed_v = src.getElapsedV();
-    std::time_t         elapsed_l = src.getElapsedL();
+    std::time_t         elapsed_d = src.getElapsedL();
 
     o << "before:   ";
     std::copy(seq_v.begin(), seq_v.end(), std::ostream_iterator<unsigned int>(o, " "));
@@ -196,7 +201,7 @@ std::ostream & operator<<(std::ostream & o, PmergeMe const & src)
     std::copy(seq_v_sorted.begin(), seq_v_sorted.end(), std::ostream_iterator<unsigned int>(o, " "));
     o << std::endl;
     o << "Time to process a range of " << seq_v.size() << " elements with std::vector: " << elapsed_v << "us" << std::endl;
-    o << "Time to process a range of " << seq_v.size() << " elements with std::list: " << elapsed_l << "us" << std::endl;
+    o << "Time to process a range of " << seq_v.size() << " elements with std::deque: " << elapsed_d << "us" << std::endl;
     return o;
 }
 
