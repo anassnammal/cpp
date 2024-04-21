@@ -77,6 +77,8 @@ void RPN::div(void)
 {
     int a = pop();
     int b = pop();
+    if (a == 0)
+        throw RPNException("can not perform devision by 0");
     push(b / a);
     return ;
 }
