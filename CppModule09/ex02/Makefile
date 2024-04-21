@@ -2,7 +2,7 @@ NAME = PmergeMe
 SRCS = main.cpp PmergeMe.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 INCS = PmergeMe.hpp
-CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
+CPPFLAGS = -std=c++98 -Wall -Wextra -Werror -g -fsanitize=address
 CC = c++
 
 all: $(NAME)

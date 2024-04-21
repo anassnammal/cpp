@@ -58,12 +58,12 @@ uint_deque const     & PmergeMe::getSeqLSorted(void) const
     return seq_d_sorted;
 }
 
-std::time_t         PmergeMe::getElapsedV(void) const
+long long         PmergeMe::getElapsedV(void) const
 {
     return elapsed_v;
 }
 
-std::time_t         PmergeMe::getElapsedL(void) const
+long long         PmergeMe::getElapsedL(void) const
 {
     return elapsed_d;
 }
@@ -84,60 +84,95 @@ void PmergeMe::sort_v(void)
 {
     unsigned int n = seq_v.size();
     unsigned int half = n / 2;
-    pair_vector pairs(half);
+    pair_vector pairs;
     uint_vector jacob_sthal_seq;
 
-    for (unsigned int i = 0; i < half; i++)
+    for (unsigned int i = 0; i < n; i += 2)
     {
-        pairs[i].first = seq_v[i];
-        pairs[i].second = seq_v[i + 1];
-        if (pairs[i].first < pairs[i].second)
-            std::swap(pairs[i].first, pairs[i].second);
+        uint_pair pair(seq_v[i], seq_v[i + 1]);
+        if (pair.first < pair.second)
+            std::swap(pair.first, pair.second);
+        pairs.push_back(pair);
     }
     std::sort(pairs.begin(), pairs.end());
     for (unsigned int i = 0; i < half; i++)
         seq_v_sorted.push_back(pairs[i].first);
-    gen_jacobsthal(jacob_sthal_seq, n);
+    gen_jacobsthal(jacob_sthal_seq, half);
     seq_v_sorted.insert(seq_v_sorted.begin(), pairs[0].second);
     for (size_t i = 1; i < half; i++)
     {
         for (size_t j = jacob_sthal_seq[i]; j > jacob_sthal_seq[i - 1]; j--)
         {
             unsigned int element = pairs[j].second;
-            uint_vector::const_iterator pos = std::lower_bound(seq_v_sorted.begin(), seq_v_sorted.end(), element);
+            uint_vector::iterator pos = std::lower_bound(seq_v_sorted.begin(), seq_v_sorted.end(), element);
             seq_v_sorted.insert(pos, element);
         }
     }
     if (n % 2 == 1)
     {
         unsigned int n1 = seq_v.back();
-        uint_vector::const_iterator pos = std::lower_bound(seq_v_sorted.begin(), seq_v_sorted.end(), n1);
+        uint_vector::iterator pos = std::lower_bound(seq_v_sorted.begin(), seq_v_sorted.end(), n1);
         seq_v_sorted.insert(pos, n1);
     }
 }
 
 void    PmergeMe::sort_d(void)
 {
+    unsigned int n = seq_d.size();
+    unsigned int half = n / 2;
+    pair_deque pairs;
+    uint_deque jacob_sthal_seq;
 
+    for (unsigned int i = 0; i < n; i += 2)
+    {
+        uint_pair pair(seq_v[i], seq_v[i + 1]);
+        if (pair.first < pair.second)
+            std::swap(pair.first, pair.second);
+        pairs.push_back(pair);
+    }
+    std::sort(pairs.begin(), pairs.end());
+    for (unsigned int i = 0; i < half; i++)
+        seq_d_sorted.push_back(pairs[i].first);
+    gen_jacobsthal(jacob_sthal_seq, half);
+    seq_d_sorted.insert(seq_d_sorted.begin(), pairs[0].second);
+    for (size_t i = 1; i < half; i++)
+    {
+        for (size_t j = jacob_sthal_seq[i]; j > jacob_sthal_seq[i - 1]; j--)
+        {
+            unsigned int element = pairs[j].second;
+            uint_deque::iterator pos = std::lower_bound(seq_d_sorted.begin(), seq_d_sorted.end(), element);
+            seq_d_sorted.insert(pos, element);
+        }
+    }
+    if (n % 2 == 1)
+    {
+        unsigned int n1 = seq_d.back();
+        uint_deque::iterator pos = std::lower_bound(seq_d_sorted.begin(), seq_d_sorted.end(), n1);
+        seq_d_sorted.insert(pos, n1);
+    }
 }
 
 void    PmergeMe::launchMergeInsertionSort(int ac, char **av)
 {
-    std::time_t     start;
-    std::time_t     end;
+    struct timeval  tv;
+    
 
     try
     {
-        start = std::time(NULL);
+        gettimeofday(&tv, NULL);
+        long long start = tv.tv_sec * 1000000 + tv.tv_usec;
         load_v(ac, av);
         sort_v();
-        end = std::time(NULL);
+        gettimeofday(&tv, NULL);
+        long long end = tv.tv_sec * 1000000 + tv.tv_usec;
         elapsed_v = end - start;
 
-        start = std::time(NULL);
+        gettimeofday(&tv, NULL);
+        start = tv.tv_sec * 1000000 + tv.tv_usec;
         load_d(ac, av);
         sort_d();
-        end = std::time(NULL);
+        gettimeofday(&tv, NULL);
+        end = tv.tv_sec * 1000000 + tv.tv_usec;
         elapsed_d = end - start;
     }
     catch (std::exception & e)
@@ -170,8 +205,7 @@ void    PmergeMe::gen_jacobsthal(uint_vector & seq, unsigned int n)
         unsigned int curr = seq[i - 1] + 2 * seq[i - 2];
         if (curr > n)
             finiched = true;
-        else
-            seq.push_back(curr);
+        seq.push_back(curr);
     }
 }
 
@@ -183,16 +217,22 @@ void    PmergeMe::gen_jacobsthal(uint_deque & seq, unsigned int n)
     if (n == 1)
         return ;
     seq.push_back(1);
-    for (unsigned int i = 2; i < n; i++)
-        seq.push_back(seq.back() + 2 * seq.rbegin()[1]);
+    bool finiched = false;
+    for (unsigned int i = 2; !finiched; i++)
+    {
+        unsigned int curr = seq[i - 1] + 2 * seq[i - 2];
+        if (curr > n)
+            finiched = true;
+        seq.push_back(curr);
+    }
 }
 
 std::ostream & operator<<(std::ostream & o, PmergeMe const & src)
 {
     uint_vector const   & seq_v = src.getSeqV();
     uint_vector const   & seq_v_sorted = src.getSeqVSorted();
-    std::time_t         elapsed_v = src.getElapsedV();
-    std::time_t         elapsed_d = src.getElapsedL();
+    long long         elapsed_v = src.getElapsedV();
+    long long         elapsed_d = src.getElapsedL();
 
     o << "before:   ";
     std::copy(seq_v.begin(), seq_v.end(), std::ostream_iterator<unsigned int>(o, " "));

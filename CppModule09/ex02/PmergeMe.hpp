@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <sstream>
-#include <ctime>
+#include <sys/time.h>
 #include <vector>
 #include <deque>
 #include <algorithm>
@@ -22,8 +22,8 @@ class PmergeMe
     uint_vector seq_v_sorted;
     uint_deque   seq_d_sorted;
 
-    std::time_t elapsed_v;
-    std::time_t elapsed_d;
+    long long elapsed_v;
+    long long elapsed_d;
 
 public:
     PmergeMe(void);
@@ -36,8 +36,8 @@ public:
     uint_deque const     & getSeqL(void) const;
     uint_vector const   & getSeqVSorted(void) const;
     uint_deque const     & getSeqLSorted(void) const;
-    std::time_t         getElapsedV(void) const;
-    std::time_t         getElapsedL(void) const;
+    long long         getElapsedV(void) const;
+    long long         getElapsedL(void) const;
 
     void    load_v(int ac, char **av);
     void    load_d(int ac, char **av);
