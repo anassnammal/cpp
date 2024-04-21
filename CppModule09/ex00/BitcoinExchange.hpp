@@ -30,6 +30,7 @@ public:
     static std::string  trim(std::string const & str);
     static std::time_t  strToSec(std::string const & str);
     static std::string  secToString(std::time_t const & sec);
+    static bool         isValidDate(struct std::tm &date);
 
     class FileError : public std::exception
     {

@@ -135,9 +135,11 @@ std::string BitcoinExchange::trim(std::string const & str)
 
 std::time_t BitcoinExchange::strToSec(std::string const & str)
 {
+    // 
     // std::cout << "BitcoinExchange: strToSec called" << std::endl;
     struct std::tm tm = {};
-    if (strptime(str.c_str(), "%Y-%m-%d", &tm) == NULL)
+    // std::cout << str << std::endl;
+    if (!strptime(str.c_str(), "%Y-%m-%d", &tm) || !isValidDate(tm))
         throw FileError("Invalid date format => " + str);
     std::time_t sec = std::mktime(&tm);
     if (sec == -1)
@@ -152,6 +154,17 @@ std::string BitcoinExchange::secToString(std::time_t const & sec)
     char buffer[11];
     std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", tm);
     return std::string(buffer);
+}
+
+bool         BitcoinExchange::isValidDate(struct std::tm &date)
+{
+    bool leap_year = ((date.tm_year % 4 == 0 && date.tm_year % 100 != 0) || (date.tm_year % 400 == 0));
+    int month_days = 30;
+    month_days -= (date.tm_mon == 1);
+    month_days -= (!leap_year && date.tm_mon == 1);
+    month_days += (date.tm_mon % 2 == 0 && date.tm_mon < 7) || (date.tm_mon % 2 == 1 && date.tm_mon > 6);
+    // std::cout << month_days << std::endl;
+    return (date.tm_mday <= month_days);
 }
 
 BitcoinExchange::FileError::FileError(std::string const & msg) : msg(msg)
@@ -172,3 +185,17 @@ const char * BitcoinExchange::FileError::what() const throw()
     return msg.c_str();
 }
 
+/*
+    January - 31 days
+    February - 28 days in a common year and 29 days in leap years
+    March - 31 days
+    April - 30 days
+    May - 31 days
+    June - 30 days
+    July - 31 days
+    August - 31 days
+    September - 30 days
+    October - 31 days
+    November - 30 days
+    December - 31 days
+*/
