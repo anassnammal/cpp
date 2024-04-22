@@ -2,7 +2,7 @@ NAME = RPN
 SRCS = main.cpp RPN.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 INCS = RPN.hpp
-CPPFLAGS = -std=c++98 -Wall -Wextra -Werror -g
+CPPFLAGS = -std=c++98 -Wall -Wextra -Werror
 CC = c++
 
 all: $(NAME)
