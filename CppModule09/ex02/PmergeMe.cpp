@@ -188,17 +188,16 @@ void    PmergeMe::gen_jacobsthal(uint_vector & seq, unsigned int n)
     if (n == 0)
         return ;
     seq.push_back(0);
-    if (n == 1)
-        return ;
+    // if (n == 1)
+    //     return ;
     seq.push_back(1);
-    bool finished = false;
-    for (unsigned int i = 2; !finished; i++)
+    for (unsigned int i = 2; ;i++)
     {
         unsigned int curr = seq[i - 1] + 2 * seq[i - 2];
         if (curr >= n)
         {
             seq.push_back(n);
-            finished = true;
+            return ;
         }
         else
             seq.push_back(curr);
@@ -213,14 +212,13 @@ void    PmergeMe::gen_jacobsthal(uint_deque & seq, unsigned int n)
     if (n == 1)
         return ;
     seq.push_back(1);
-    bool finished = false;
-    for (unsigned int i = 2; !finished; i++)
+    for (unsigned int i = 2; ;i++)
     {
         unsigned int curr = seq[i - 1] + 2 * seq[i - 2];
         if (curr >= n)
         {
             seq.push_back(n);
-            finished = true;
+            return ;
         }
         else
             seq.push_back(curr);
